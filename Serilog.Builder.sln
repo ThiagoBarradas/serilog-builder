@@ -5,6 +5,20 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Builder", "Serilog.Builder\Serilog.Builder.csproj", "{DEC34DD5-E4B2-47DE-8E53-90E410D4D131}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B7536345-B053-488D-B751-EA1B4A6584C8}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
+		.github\ISSUE_TEMPLATE.md = .github\ISSUE_TEMPLATE.md
+		LICENSE = LICENSE
+		.github\PULL_REQUEST_TEMPLATE.md = .github\PULL_REQUEST_TEMPLATE.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Builder.Tests", "Serilog.Builder.Tests\Serilog.Builder.Tests.csproj", "{4DF8BC59-963A-4418-90E4-B24A1FDB5BD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +29,10 @@ Global
 		{DEC34DD5-E4B2-47DE-8E53-90E410D4D131}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC34DD5-E4B2-47DE-8E53-90E410D4D131}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC34DD5-E4B2-47DE-8E53-90E410D4D131}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DF8BC59-963A-4418-90E4-B24A1FDB5BD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DF8BC59-963A-4418-90E4-B24A1FDB5BD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DF8BC59-963A-4418-90E4-B24A1FDB5BD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DF8BC59-963A-4418-90E4-B24A1FDB5BD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
