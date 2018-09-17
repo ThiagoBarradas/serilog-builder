@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Company>Thiago Barradas</Company>
+    <Authors>Thiago Barradas</Authors>
+    <RepositoryUrl>https://github.com/ThiagoBarradas/serilog-builder</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ThiagoBarradas/serilog-builder</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/ThiagoBarradas/serilog-builder/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageTags>console seq splunk log serilog builder pre defined</PackageTags>
+    <Description>Builder with my serilog common settings for use Console, Seq and Splunk sinks.</Description>
+    <Copyright>Ⓒ Thiago Barradas</Copyright>
+    <PackageIconUrl>https://avatars3.githubusercontent.com/u/5691010?s=400&amp;v=4</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
