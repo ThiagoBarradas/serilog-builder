@@ -8,6 +8,11 @@ namespace Serilog.Builder.Models
     public class SeqOptions
     {
         /// <summary>
+        /// Set if seq is enabled
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        /// <summary>
         /// Minimum Level
         /// </summary>
         public LogEventLevel? MinimumLevel { get; set; }

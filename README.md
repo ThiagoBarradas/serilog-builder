@@ -17,12 +17,14 @@ LoggerBuilder builder = new LoggerBuilder();
 
 SeqOptions seqOptions = new SeqOptions
 {
+    Enabled = true,
     Url = "http://localhost",
     ApiKey = "123456"
 };
 
 SplunkOptions splunkOptions = new SplunkOptions
 {
+    Enabled = true,
     Url = "http://localhost",
     Token = "123456",
     Index = "my.index"
@@ -30,8 +32,8 @@ SplunkOptions splunkOptions = new SplunkOptions
 
 Log.Logger = builder
     .UseSuggestedSetting("MyDomain", "MyApplication")
-    .EnableSeq(seqOptions)
-    .EnableSplunk(splunkOptions)
+    .SetupSeq(seqOptions)
+    .SetupSplunk(splunkOptions)
     .BuildLogger();
 
 Log.Logger.Debug("Log something");

@@ -67,7 +67,22 @@ namespace Serilog.Builder
         /// <returns></returns>
         public LoggerBuilder EnableConsole()
         {
-            this.OutputConfiguration.Console.Enabled = true;
+            return this.SetupConsole(new ConsoleOptions
+            {
+                Enabled = true
+            });
+        }
+
+        /// <summary>
+        /// Setup console
+        /// </summary>
+        /// <returns></returns>
+        public LoggerBuilder SetupConsole(ConsoleOptions options)
+        {
+            this.OutputConfiguration.Console.Options = options
+                ?? throw new ArgumentNullException(nameof(options));
+
+            this.OutputConfiguration.Console.Enabled = options.Enabled;
             return this;
         }
 
@@ -88,8 +103,9 @@ namespace Serilog.Builder
         /// <returns></returns>
         public LoggerBuilder EnableSeq(string url)
         {
-            return this.EnableSeq(new SeqOptions
+            return this.SetupSeq(new SeqOptions
             {
+                Enabled = true,
                 Url = url
             });
         }
@@ -102,21 +118,21 @@ namespace Serilog.Builder
         /// <returns></returns>
         public LoggerBuilder EnableSeq(string url, string apiKey)
         {
-            return this.EnableSeq(new SeqOptions
+            return this.SetupSeq(new SeqOptions
             {
+                Enabled = true,
                 Url = url, 
                 ApiKey = apiKey
             });
         }
 
         /// <summary>
-        /// Enable seq
+        /// Setup seq
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public LoggerBuilder EnableSeq(SeqOptions options)
+        public LoggerBuilder SetupSeq(SeqOptions options)
         {
-            this.OutputConfiguration.Seq.Enabled = true;
             this.OutputConfiguration.Seq.Options =  options 
                 ?? throw new ArgumentNullException(nameof(options));
 
@@ -124,6 +140,9 @@ namespace Serilog.Builder
             {
                 throw new ArgumentNullException(nameof(options.Url));
             }
+
+            this.OutputConfiguration.Seq.Enabled = options.Enabled;
+
             return this;
         }
 
@@ -144,8 +163,9 @@ namespace Serilog.Builder
         /// <returns></returns>
         public LoggerBuilder EnableSplunk(string url)
         {
-            return this.EnableSplunk(new SplunkOptions
+            return this.SetupSplunk(new SplunkOptions
             {
+                Enabled = true,
                 Url = url
             });
         }
@@ -158,21 +178,21 @@ namespace Serilog.Builder
         /// <returns></returns>
         public LoggerBuilder EnableSplunk(string url, string token)
         {
-            return this.EnableSplunk(new SplunkOptions
+            return this.SetupSplunk(new SplunkOptions
             {
+                Enabled = true,
                 Url = url,
                 Token = token
             });
         }
 
         /// <summary>
-        /// Enable seq
+        /// Setup seq
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        public LoggerBuilder EnableSplunk(SplunkOptions options)
+        public LoggerBuilder SetupSplunk(SplunkOptions options)
         {
-            this.OutputConfiguration.Splunk.Enabled = true;
             this.OutputConfiguration.Splunk.Options = options
                 ?? throw new ArgumentNullException(nameof(options));
 
@@ -180,6 +200,9 @@ namespace Serilog.Builder
             { 
                 throw new ArgumentNullException(nameof(options.Url));
             }
+
+            this.OutputConfiguration.Splunk.Enabled = options.Enabled;
+
             return this;
         }
 

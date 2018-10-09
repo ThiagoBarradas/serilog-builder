@@ -53,7 +53,7 @@ namespace Serilog.Builder
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        LoggerBuilder EnableSeq(SeqOptions options);
+        LoggerBuilder SetupSeq(SeqOptions options);
 
         /// <summary>
         /// Disable seq
@@ -81,7 +81,7 @@ namespace Serilog.Builder
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
-        LoggerBuilder EnableSplunk(SplunkOptions options);
+        LoggerBuilder SetupSplunk(SplunkOptions options);
 
         /// <summary>
         /// Disable splunk
