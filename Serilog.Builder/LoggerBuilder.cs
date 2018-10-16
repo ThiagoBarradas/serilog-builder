@@ -136,7 +136,7 @@ namespace Serilog.Builder
             this.OutputConfiguration.Seq.Options =  options 
                 ?? throw new ArgumentNullException(nameof(options));
 
-            if (string.IsNullOrWhiteSpace(options.Url) == true)
+            if (string.IsNullOrWhiteSpace(options.Url) == true && options.Enabled == true)
             {
                 throw new ArgumentNullException(nameof(options.Url));
             }
@@ -196,7 +196,7 @@ namespace Serilog.Builder
             this.OutputConfiguration.Splunk.Options = options
                 ?? throw new ArgumentNullException(nameof(options));
 
-            if (string.IsNullOrWhiteSpace(options.Url) == true)
+            if (string.IsNullOrWhiteSpace(options.Url) == true && options.Enabled == true)
             { 
                 throw new ArgumentNullException(nameof(options.Url));
             }

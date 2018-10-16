@@ -46,6 +46,21 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
+        public void EnableConsole_With_MinimumLevel()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.SetupConsole(new ConsoleOptions { Enabled = true, MinimumLevel = LogEventLevel.Warning });
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.Console.Enabled);
+            Assert.Equal(LogEventLevel.Warning, builder.OutputConfiguration.Console.Options.MinimumLevel);
+        }
+
+        [Fact]
         public void SetupConsole()
         {
             // arrage
@@ -97,6 +112,7 @@ namespace Serilog.Builder.Tests
 
             // act
             builder.EnableSeq("http://www.google.com");
+            var logger = builder.BuildLogger();
 
             // assert
             Assert.True(builder.OutputConfiguration.Seq.Enabled);
@@ -126,12 +142,21 @@ namespace Serilog.Builder.Tests
             LoggerBuilder builder = new LoggerBuilder();
 
             // act
-            builder.SetupSeq(new SeqOptions { Url = "http://www.google.com", Enabled = true });
+            builder.SetupSeq(new SeqOptions
+            {
+                Url = "http://www.google.com",
+                Enabled = true,
+                MinimumLevel = LogEventLevel.Information,
+                ApiKey = "test"
+            });
+            var logger = builder.BuildLogger();
 
             // assert
             Assert.True(builder.OutputConfiguration.Seq.Enabled);
             Assert.NotNull(builder.OutputConfiguration.Seq.Options.Url);
-            Assert.Null(builder.OutputConfiguration.Seq.Options.ApiKey);
+            Assert.Equal("http://www.google.com", builder.OutputConfiguration.Seq.Options.Url);
+            Assert.NotNull(builder.OutputConfiguration.Seq.Options.ApiKey);
+            Assert.Equal("test", builder.OutputConfiguration.Seq.Options.ApiKey);
         }
 
         [Fact]
@@ -158,7 +183,7 @@ namespace Serilog.Builder.Tests
 
             // act
             Exception ex = Assert.Throws<ArgumentNullException>(() =>
-                builder.SetupSeq(new SeqOptions { Url = "" }));
+                builder.SetupSeq(new SeqOptions { Url = "", Enabled = true }));
 
             // assert
             Assert.Equal("Value cannot be null.\r\nParameter name: Url", ex.Message);
@@ -173,7 +198,7 @@ namespace Serilog.Builder.Tests
 
             // act
             Exception ex = Assert.Throws<ArgumentNullException>(() =>
-                builder.SetupSeq(new SeqOptions()));
+                builder.SetupSeq(new SeqOptions { Enabled = true }));
 
             // assert
             Assert.Equal("Value cannot be null.\r\nParameter name: Url", ex.Message);
@@ -201,6 +226,7 @@ namespace Serilog.Builder.Tests
 
             // act
             builder.EnableSplunk("http://www.google.com");
+            var logger = builder.BuildLogger();
 
             // assert
             Assert.True(builder.OutputConfiguration.Splunk.Enabled);
@@ -230,12 +256,28 @@ namespace Serilog.Builder.Tests
             LoggerBuilder builder = new LoggerBuilder();
 
             // act
-            builder.SetupSplunk(new SplunkOptions { Url = "http://www.google.com", Enabled = true });
+            builder.SetupSplunk(new SplunkOptions
+            {
+                Url = "http://www.google.com",
+                Enabled = true,
+                MinimumLevel = LogEventLevel.Verbose,
+                Application = "app",
+                Company = "company",
+                Index = "index",
+                ProcessName = "process",
+                ProductVersion = "1.0",
+                SourceType = "__json",
+                Token = "XXXXX"
+            });
+            var logger = builder.BuildLogger();
 
             // assert
             Assert.True(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.True(builder.OutputConfiguration.Splunk.Options.Enabled);
             Assert.NotNull(builder.OutputConfiguration.Splunk.Options.Url);
-            Assert.Null(builder.OutputConfiguration.Splunk.Options.Token);
+            Assert.Equal("http://www.google.com", builder.OutputConfiguration.Splunk.Options.Url);
+            Assert.NotNull(builder.OutputConfiguration.Splunk.Options.Token);
+            Assert.Equal("XXXXX", builder.OutputConfiguration.Splunk.Options.Token);
         }
 
         [Fact]
@@ -262,7 +304,7 @@ namespace Serilog.Builder.Tests
 
             // act
             Exception ex = Assert.Throws<ArgumentNullException>(() =>
-                builder.SetupSplunk(new SplunkOptions { Url = "" }));
+                builder.SetupSplunk(new SplunkOptions { Url = "", Enabled = true }));
 
             // assert
             Assert.Equal("Value cannot be null.\r\nParameter name: Url", ex.Message);
@@ -277,7 +319,7 @@ namespace Serilog.Builder.Tests
 
             // act
             Exception ex = Assert.Throws<ArgumentNullException>(() =>
-                builder.SetupSplunk(new SplunkOptions()));
+                builder.SetupSplunk(new SplunkOptions { Enabled = true }));
 
             // assert
             Assert.Equal("Value cannot be null.\r\nParameter name: Url", ex.Message);
