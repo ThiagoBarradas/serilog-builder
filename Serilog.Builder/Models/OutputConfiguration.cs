@@ -36,6 +36,11 @@ namespace Serilog.Builder.Models
         public Output<SplunkOptions> Splunk { get; set; }
 
         /// <summary>
+        /// GoogleCloudLogging
+        /// </summary>
+        public Output<GoogleCloudLoggingOptions> GoogleCloudLogging { get; set; }
+
+        /// <summary>
         /// Minimum level
         /// </summary>
         public LogEventLevel MinimumLevel { get; set; }
@@ -53,6 +58,7 @@ namespace Serilog.Builder.Models
             this.Console = new Output<ConsoleOptions>();
             this.Seq = new Output<SeqOptions>();
             this.Splunk = new Output<SplunkOptions>();
+            this.GoogleCloudLogging = new Output<GoogleCloudLoggingOptions>();
             this.OverrideMinimumLevel = new Dictionary<string, LogEventLevel>();
             this.EnrichProperties = new Dictionary<string, object>();
         }

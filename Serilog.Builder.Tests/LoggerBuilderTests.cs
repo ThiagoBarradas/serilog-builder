@@ -340,13 +340,131 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
+        public void EnableGoogleCloudLogging_With_ProjectId()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.EnableGoogleCloudLogging("project_id");
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+            Assert.Equal("project_id", builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+            Assert.Null(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+        }
+
+        [Fact]
+        public void EnableGoogleCloudLogging_With_ProjectId_And_CertificatePath()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.EnableGoogleCloudLogging("project_id", "C:\\Certificate.json");
+
+            // assert
+            Assert.True(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+            Assert.Equal("project_id", builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+            Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+            Assert.Equal("C:\\Certificate.json", builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+        }
+
+        [Fact]
+        public void EnableGoogleCloudLogging_With_GoogleCloudLoggingOptions()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.SetupGoogleCloudLogging(new GoogleCloudLoggingOptions
+            {
+                Enabled = true,
+                ProjectId = "project_id",
+                CertificatePath = "C:\\Certificate.json"
+
+            });
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+            Assert.Equal("project_id", builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+            Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+            Assert.Equal("C:\\Certificate.json", builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+        }
+
+        [Fact]
+        public void EnableGoogleCloudLogging_Should_Throws_Exception_When_Options_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupGoogleCloudLogging((GoogleCloudLoggingOptions)null));
+
+            // assert
+            Assert.Equal("Value cannot be null.\r\nParameter name: options", ex.Message);
+        }
+
+        [Fact]
+        public void EnableGoogleCloudLogging_Should_Throws_Exception_When_Options_ProjectId_Is_Empty_String()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupGoogleCloudLogging(new GoogleCloudLoggingOptions { ProjectId = "", Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\r\nParameter name: ProjectId", ex.Message);
+        }
+
+        [Fact]
+        public void EnableGoogleCloudLogging_Should_Throws_Exception_When_Option_ProjectId_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupGoogleCloudLogging(new GoogleCloudLoggingOptions { Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\r\nParameter name: ProjectId", ex.Message);
+        }
+
+        [Fact]
+        public void DisableGoogleCloudLogging()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+            builder.EnableGoogleCloudLogging("project_Id");
+
+            // act
+            builder.DisableGoogleCloudLogging();
+
+            // assert
+            Assert.False(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
+        }
+
+        [Fact]
         public void DisableAllOutputs()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
             builder.EnableConsole()
                 .EnableSeq("http://www.google.com")
-                .EnableSplunk("http://www.google.com");
+                .EnableSplunk("http://www.google.com")
+                .EnableGoogleCloudLogging("project_id");
 
             // act
             builder.DisableAllOutputs();
@@ -355,6 +473,7 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Console.Enabled);
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.False(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
         }
 
         [Fact]
@@ -796,6 +915,11 @@ namespace Serilog.Builder.Tests
                     Url = "http://www.google.ocm",
                     MinimumLevel = LogEventLevel.Error,
                     Enabled = true
+                })
+                .SetupGoogleCloudLogging(new GoogleCloudLoggingOptions {
+                    Enabled = true,
+                    ProjectId = "project_id",
+                    CertificatePath = "C:\\Certificate.json"
                 });
 
             var loggerConfiguration = builder.BuildConfiguration();
@@ -819,6 +943,11 @@ namespace Serilog.Builder.Tests
             Assert.Equal(LogEventLevel.Warning, builder.OutputConfiguration.OverrideMinimumLevel["Microsoft"]);
             Assert.Equal(LogEventLevel.Error, builder.OutputConfiguration.OverrideMinimumLevel["System"]);
             Assert.Equal(LogEventLevel.Debug, builder.OutputConfiguration.MinimumLevel);
+            Assert.True(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+            Assert.Equal("project_id", builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+            Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+            Assert.Equal("C:\\Certificate.json", builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
         }
 
         [Fact]
@@ -839,6 +968,7 @@ namespace Serilog.Builder.Tests
             Assert.Contains("SomeTest Build_Default_Logger", this.TestOutputHelper.Output);
             Assert.False(builder.OutputConfiguration.Console.Enabled);
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
+            Assert.False(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
             Assert.False(builder.OutputConfiguration.EnableEnrichWithEnvironment);
             Assert.Empty(builder.OutputConfiguration.EnrichProperties);
@@ -870,8 +1000,7 @@ namespace Serilog.Builder.Tests
                 .SetupSeq(seqOptions)
                 .SetupSplunk(splunkOptions)
                 .BuildLogger();
-
-
+            
             // act
             var logger = builder.BuildLogger();
 

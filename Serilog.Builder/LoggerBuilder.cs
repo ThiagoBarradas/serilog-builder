@@ -1,5 +1,6 @@
 ﻿using Serilog.Builder.Models;
 using Serilog.Events;
+using Serilog.Sinks.GoogleCloudLogging;
 using Serilog.Sinks.Splunk.CustomFormatter;
 using System;
 
@@ -157,6 +158,66 @@ namespace Serilog.Builder
         }
 
         /// <summary>
+        /// Enable GoogleCloudLogging
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public LoggerBuilder EnableGoogleCloudLogging(string projectId)
+        {
+            return this.SetupGoogleCloudLogging(new GoogleCloudLoggingOptions
+            {
+                Enabled = true,
+                ProjectId = projectId
+            });
+        }
+
+        /// <summary>
+        /// Enable GoogleCloudLogging
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="certificatePath"></param>
+        /// <returns></returns>
+        public LoggerBuilder EnableGoogleCloudLogging(string projectId, string certificatePath)
+        {
+            return this.SetupGoogleCloudLogging(new GoogleCloudLoggingOptions
+            {
+                Enabled = true,
+                ProjectId = projectId,
+                CertificatePath = certificatePath
+            });
+        }
+
+        /// <summary>
+        /// Setup GoogleCloudLogging
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public LoggerBuilder SetupGoogleCloudLogging(GoogleCloudLoggingOptions options)
+        {
+            this.OutputConfiguration.GoogleCloudLogging.Options = options
+                ?? throw new ArgumentNullException(nameof(options));
+
+            if (string.IsNullOrWhiteSpace(options.ProjectId) == true && options.Enabled == true)
+            {
+                throw new ArgumentNullException(nameof(options.ProjectId));
+            }
+
+            this.OutputConfiguration.GoogleCloudLogging.Enabled = options.Enabled;
+
+            return this;
+        }
+
+        /// <summary>
+        /// Disable GoogleCloudLogging
+        /// </summary>
+        /// <returns></returns>
+        public LoggerBuilder DisableGoogleCloudLogging()
+        {
+            this.OutputConfiguration.GoogleCloudLogging.Enabled = false;
+            return this;
+        }
+
+        /// <summary>
         /// Enable splunk
         /// </summary>
         /// <param name="url"></param>
@@ -224,7 +285,8 @@ namespace Serilog.Builder
         {
             return this.DisableConsole()
                        .DisableSeq()
-                       .DisableSplunk();
+                       .DisableSplunk()
+                       .DisableGoogleCloudLogging();
         }
 
         /// <summary>
@@ -382,6 +444,11 @@ namespace Serilog.Builder
                 var splunkFormatter = new SplunkJsonFormatter(splunkSettings);
 
                 logger.WriteTo.EventCollector(splunkSettings.ServerURL, splunkSettings.Token, jsonFormatter: splunkFormatter, restrictedToMinimumLevel: logLevel);
+            }
+
+            if (this.OutputConfiguration.GoogleCloudLogging.Enabled == true)
+            {            
+                logger.WriteTo.GoogleCloudLogging(this.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
             }
 
             return logger;
