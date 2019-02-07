@@ -344,6 +344,7 @@ namespace Serilog.Builder.Tests
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", null);
 
             // act
             builder.EnableGoogleCloudLogging("project_id");
@@ -354,6 +355,7 @@ namespace Serilog.Builder.Tests
             Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
             Assert.Equal("project_id", builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
             Assert.Null(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+            Assert.Null(Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS"));
         }
 
         [Fact]
@@ -361,9 +363,11 @@ namespace Serilog.Builder.Tests
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", null);
 
             // act
             builder.EnableGoogleCloudLogging("project_id", "C:\\Certificate.json");
+            var logger = builder.BuildLogger();
 
             // assert
             Assert.True(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
@@ -371,6 +375,7 @@ namespace Serilog.Builder.Tests
             Assert.Equal("project_id", builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
             Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
             Assert.Equal("C:\\Certificate.json", builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+            Assert.Equal("C:\\Certificate.json", Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS"));
         }
 
         [Fact]
@@ -948,6 +953,7 @@ namespace Serilog.Builder.Tests
             Assert.Equal("project_id", builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
             Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
             Assert.Equal("C:\\Certificate.json", builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+            Assert.Equal("C:\\Certificate.json", Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS"));
         }
 
         [Fact]

@@ -447,8 +447,13 @@ namespace Serilog.Builder
             }
 
             if (this.OutputConfiguration.GoogleCloudLogging.Enabled == true)
-            {            
+            {
                 logger.WriteTo.GoogleCloudLogging(this.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+
+                if (!string.IsNullOrWhiteSpace(this.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath))
+                {
+                    Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", this.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+                }
             }
 
             return logger;
