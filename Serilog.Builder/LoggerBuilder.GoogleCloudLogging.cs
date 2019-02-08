@@ -22,7 +22,8 @@ namespace Serilog.Builder
                     Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", this.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
                 }
 
-                logger.WriteTo.GoogleCloudLogging(this.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
+                logger.WriteTo.GoogleCloudLogging(this.OutputConfiguration.GoogleCloudLogging.Options.ProjectId, 
+                    useJsonOutput: this.OutputConfiguration.GoogleCloudLogging.Options.UseJsonOutput);
             }
         }
 
