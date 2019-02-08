@@ -27,9 +27,9 @@ namespace Serilog.Builder
                 {
                     var config = new GoogleCloudLoggingSinkOptions(
                         this.OutputConfiguration.GoogleCloudLogging.Options.ProjectId,
-                        this.OutputConfiguration.GoogleCloudLogging.Options.ResourceType,
-                        this.OutputConfiguration.GoogleCloudLogging.Options.Labels,
-                        this.OutputConfiguration.GoogleCloudLogging.Options.ResourceLabels);
+                        resourceType: this.OutputConfiguration.GoogleCloudLogging.Options.ResourceType,
+                        labels: this.OutputConfiguration.GoogleCloudLogging.Options.Labels,
+                        resourceLabels: this.OutputConfiguration.GoogleCloudLogging.Options.ResourceLabels);
 
                     config.UseJsonOutput = this.OutputConfiguration.GoogleCloudLogging.Options.UseJsonOutput;
 

@@ -30,16 +30,16 @@ namespace Serilog.Builder.Models
         /// <summary>
         /// ResourceType
         /// </summary>
-        public string ResourceType { get; internal set; }
+        public string ResourceType { get; set; }
 
         /// <summary>
         /// Labels
         /// </summary>
-        public string Labels { get; internal set; }
+        public Dictionary<string, string> Labels { get; set; }
 
         /// <summary>
         /// Resource Labels
         /// </summary>
-        public Dictionary<string, string> ResourceLabels { get; internal set; }
+        public Dictionary<string, string> ResourceLabels { get; set; }
     }
 }
