@@ -1,6 +1,7 @@
 ﻿using Serilog.Builder.Models;
 using Serilog.Sinks.GoogleCloudLogging;
 using System;
+using System.Diagnostics;
 
 namespace Serilog.Builder
 {
@@ -22,8 +23,25 @@ namespace Serilog.Builder
                     Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", this.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
                 }
 
-                logger.WriteTo.GoogleCloudLogging(this.OutputConfiguration.GoogleCloudLogging.Options.ProjectId, 
-                    useJsonOutput: this.OutputConfiguration.GoogleCloudLogging.Options.UseJsonOutput);
+                try
+                {
+                    var config = new GoogleCloudLoggingSinkOptions(
+                        this.OutputConfiguration.GoogleCloudLogging.Options.ProjectId,
+                        this.OutputConfiguration.GoogleCloudLogging.Options.ResourceType,
+                        this.OutputConfiguration.GoogleCloudLogging.Options.Labels,
+                        this.OutputConfiguration.GoogleCloudLogging.Options.ResourceLabels);
+
+                    config.UseJsonOutput = this.OutputConfiguration.GoogleCloudLogging.Options.UseJsonOutput;
+
+                    logger.WriteTo.GoogleCloudLogging(config);
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine("Serilog: Error on Setup GoogleCloudLogging: ");
+                    Debug.WriteLine(" Message: {0}", e.Message);
+                    Console.WriteLine("Serilog: Error on Setup GoogleCloudLogging: ");
+                    Console.WriteLine(" Message: {0}", e.Message);
+                }
             }
         }
 

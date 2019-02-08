@@ -1,4 +1,6 @@
-﻿namespace Serilog.Builder.Models
+﻿using System.Collections.Generic;
+
+namespace Serilog.Builder.Models
 {
     /// <summary>
     /// GoogleCloudLogging Options
@@ -24,5 +26,20 @@
         /// Use json output
         /// </summary>
         public bool UseJsonOutput { get; set; } = true;
+
+        /// <summary>
+        /// ResourceType
+        /// </summary>
+        public string ResourceType { get; internal set; }
+
+        /// <summary>
+        /// Labels
+        /// </summary>
+        public string Labels { get; internal set; }
+
+        /// <summary>
+        /// Resource Labels
+        /// </summary>
+        public Dictionary<string, string> ResourceLabels { get; internal set; }
     }
 }
