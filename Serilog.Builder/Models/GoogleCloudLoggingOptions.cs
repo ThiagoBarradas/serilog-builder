@@ -19,5 +19,10 @@
         /// GoogleCloudLogging Certificade Path
         /// </summary>
         public string CertificatePath { get; set; }
+
+        /// <summary>
+        /// Use json output
+        /// </summary>
+        public bool UseJsonOutput { get; set; } = true;
     }
 }
