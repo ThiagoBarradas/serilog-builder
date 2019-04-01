@@ -61,6 +61,6 @@ namespace Serilog.Builder.Models
         /// <summary>
         /// Custom Text Formatter
         /// </summary>
-        public ITextFormatter textFormatter { get; set; }
+        public ITextFormatter TextFormatter { get; set; }
     }
 }
