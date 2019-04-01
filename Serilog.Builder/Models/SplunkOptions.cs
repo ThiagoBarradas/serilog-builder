@@ -1,4 +1,5 @@
 ﻿using Serilog.Events;
+using Serilog.Formatting;
 
 namespace Serilog.Builder.Models
 {
@@ -56,5 +57,10 @@ namespace Serilog.Builder.Models
         /// Access token
         /// </summary>
         public string Token { get; set; }
+
+        /// <summary>
+        /// Custom Text Formatter
+        /// </summary>
+        public ITextFormatter textFormatter { get; set; }
     }
 }
