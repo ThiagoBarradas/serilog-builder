@@ -9,13 +9,27 @@ namespace Serilog.Builder.Factory
     public class LoggerDefault : ILoggerDefault
     {
         /// <summary>
+        /// Logger
+        /// </summary>
+        public readonly ILogger _logger;
+
+        /// <summary>
+        /// Constructor 
+        /// </summary>
+        /// <param name="logger"></param>
+        public LoggerDefault(ILogger logger)
+        {
+            this._logger = logger;
+        }
+
+        /// <summary>
         /// Log async with information level
         /// </summary>
         /// <param name="message">Message</param>
         /// <returns></returns>
         public async Task InfoAsync(string message)
         {
-            await Task.Run(() => Log.Information(message));
+            await Task.Run(() => _logger.Information(message));
         }
 
         /// <summary>
@@ -25,7 +39,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task WarningAsync(string message)
         {
-            await Task.Run(() => Log.Warning(message));
+            await Task.Run(() => _logger.Warning(message));
         }
 
         /// <summary>
@@ -36,7 +50,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task WarningAsync(string message, Exception ex)
         {
-            await Task.Run(() => Log.Warning(ex, message));
+            await Task.Run(() => _logger.Warning(ex, message));
         }
 
         /// <summary>
@@ -46,7 +60,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task ErrorAsync(string message)
         {
-            await Task.Run(() => Log.Error(message));
+            await Task.Run(() => _logger.Error(message));
         }
 
         /// <summary>
@@ -57,7 +71,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task ErrorAsync(string message, Exception ex)
         {
-            await Task.Run(() => Log.Error(ex, message));
+            await Task.Run(() => _logger.Error(ex, message));
         }
     }
 }

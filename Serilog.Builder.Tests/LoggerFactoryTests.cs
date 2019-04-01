@@ -14,7 +14,6 @@ namespace Serilog.Builder.Tests
     public class LoggerFactoryTests : IDisposable
     {
         private TestOutputHelper TestOutputHelper { get; set; }
-
         private readonly Mock<IOptions<LoggerOptions>> _loggerOptions = new Mock<IOptions<LoggerOptions>>();
         private readonly Mock<IOptions<SeqOptions>> _seqOptions = new Mock<IOptions<SeqOptions>>();
         private readonly Mock<IOptions<SplunkOptions>> _splunkOptions = new Mock<IOptions<SplunkOptions>>();
@@ -82,7 +81,7 @@ namespace Serilog.Builder.Tests
                 _splunkOptions.Object, _googleCloudLoggingOptions.Object);
 
             // assert
-            Assert.IsType<Core.Logger>(Log.Logger);
+            Assert.NotNull(loggerFactory);
         }
 
         [Fact]
@@ -92,101 +91,11 @@ namespace Serilog.Builder.Tests
             ILoggerFactory loggerFactory = new LoggerFactory(_loggerOptions.Object, _seqOptions.Object,
                 _splunkOptions.Object, _googleCloudLoggingOptions.Object);
 
-            ILoggerDefault loggerDefault = loggerFactory.Create();
-            ILoggerDefault loggerDefault2 = loggerFactory.Create();
+            ILoggerDefault loggerDefault = loggerFactory.GetInstance();
+            ILoggerDefault loggerDefault2 = loggerFactory.GetInstance();
 
             // assert
             Assert.Same(loggerDefault, loggerDefault2);
-        }
-
-        [Fact]
-        public void Verify_InfoAsync()
-        {
-            // arrage & act
-            Mock<ILoggerDefault> loggerDefaultExpected = new Mock<ILoggerDefault>();
-            loggerDefaultExpected.Setup(x => x.InfoAsync(It.IsAny<string>()));
-
-            Mock<ILoggerFactory> loggerFactory = new Mock<ILoggerFactory>();
-            loggerFactory.Setup(x => x.Create()).Returns(loggerDefaultExpected.Object);
-
-            ILoggerDefault loggerDefault = loggerFactory.Object.Create();
-            
-            loggerDefault.InfoAsync("message");
-
-            // assert
-            loggerDefaultExpected.Verify(x => x.InfoAsync(It.IsAny<string>()));            
-        }
-
-        [Fact]
-        public void Verify_WarningAsync()
-        {
-            // arrage & act
-            Mock<ILoggerDefault> loggerDefaultExpected = new Mock<ILoggerDefault>();
-            loggerDefaultExpected.Setup(x => x.WarningAsync(It.IsAny<string>()));
-
-            Mock<ILoggerFactory> loggerFactory = new Mock<ILoggerFactory>();
-            loggerFactory.Setup(x => x.Create()).Returns(loggerDefaultExpected.Object);
-
-            ILoggerDefault loggerDefault = loggerFactory.Object.Create();
-
-            loggerDefault.WarningAsync("message");
-
-            // assert
-            loggerDefaultExpected.Verify(x => x.WarningAsync(It.IsAny<string>()));
-        }
-
-        [Fact]
-        public void Verify_WarningAsync_With_Exception()
-        {
-            // arrage & act
-            Mock<ILoggerDefault> loggerDefaultExpected = new Mock<ILoggerDefault>();
-            loggerDefaultExpected.Setup(x => x.WarningAsync(It.IsAny<string>(), It.IsAny<Exception>()));
-
-            Mock<ILoggerFactory> loggerFactory = new Mock<ILoggerFactory>();
-            loggerFactory.Setup(x => x.Create()).Returns(loggerDefaultExpected.Object);
-
-            ILoggerDefault loggerDefault = loggerFactory.Object.Create();
-
-            loggerDefault.WarningAsync("message", new Exception());
-
-            // assert
-            loggerDefaultExpected.Verify(x => x.WarningAsync(It.IsAny<string>(), It.IsAny<Exception>()));
-        }
-
-        [Fact]
-        public void Verify_ErrorAsync()
-        {
-            // arrage & act
-            Mock<ILoggerDefault> loggerDefaultExpected = new Mock<ILoggerDefault>();
-            loggerDefaultExpected.Setup(x => x.ErrorAsync(It.IsAny<string>()));
-
-            Mock<ILoggerFactory> loggerFactory = new Mock<ILoggerFactory>();
-            loggerFactory.Setup(x => x.Create()).Returns(loggerDefaultExpected.Object);
-
-            ILoggerDefault loggerDefault = loggerFactory.Object.Create();
-
-            loggerDefault.ErrorAsync("message");
-
-            // assert
-            loggerDefaultExpected.Verify(x => x.ErrorAsync(It.IsAny<string>()));
-        }
-
-        [Fact]
-        public void Verify_ErrorAsync_With_Exception()
-        {
-            // arrage & act
-            Mock<ILoggerDefault> loggerDefaultExpected = new Mock<ILoggerDefault>();
-            loggerDefaultExpected.Setup(x => x.ErrorAsync(It.IsAny<string>(), It.IsAny<Exception>()));
-
-            Mock<ILoggerFactory> loggerFactory = new Mock<ILoggerFactory>();
-            loggerFactory.Setup(x => x.Create()).Returns(loggerDefaultExpected.Object);
-
-            ILoggerDefault loggerDefault = loggerFactory.Object.Create();
-
-            loggerDefault.ErrorAsync("message", new Exception());
-
-            // assert
-            loggerDefaultExpected.Verify(x => x.ErrorAsync(It.IsAny<string>(), It.IsAny<Exception>()));
         }
 
         public void Dispose()

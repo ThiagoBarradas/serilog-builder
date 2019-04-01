@@ -28,25 +28,24 @@ namespace Serilog.Builder.Factory
         {
             LoggerBuilder builder = new LoggerBuilder();
 
-            var logger = loggerOptions.Value;
+            var logger = builder
+                .UseSuggestedSetting(
+                    loggerOptions.Value.Domain,
+                    loggerOptions.Value.Application)
+                .SetupSeq(seqOptions.Value)
+                .SetupSplunk(splunkOptions.Value)
+                .SetupGoogleCloudLogging(gcpOptions.Value)
+                .BuildLogger();
 
-            Log.Logger = builder
-            .UseSuggestedSetting(logger.Domain, logger.Application)
-            .SetupSeq(seqOptions.Value)
-            .SetupSplunk(splunkOptions.Value)
-            .SetupGoogleCloudLogging(gcpOptions.Value)
-            .BuildLogger();
+            _loggerDefault = new LoggerDefault(logger);
         }
 
         /// <summary>
-        /// Create logger default
+        /// Get logger default
         /// </summary>
         /// <returns></returns>
-        public ILoggerDefault Create()
+        public ILoggerDefault GetInstance()
         {
-            if (_loggerDefault == null)
-                _loggerDefault = new LoggerDefault();
-
             return _loggerDefault;
         }
 

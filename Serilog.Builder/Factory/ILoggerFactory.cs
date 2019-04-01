@@ -6,9 +6,9 @@
     public interface ILoggerFactory
     {
         /// <summary>
-        /// Create logger default
+        /// Get logger default
         /// </summary>
         /// <returns></returns>
-        ILoggerDefault Create();
+        ILoggerDefault GetInstance();
     }
 }
