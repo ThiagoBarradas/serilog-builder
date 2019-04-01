@@ -1,4 +1,5 @@
 ﻿using Serilog.Builder.Models;
+using Serilog.Formatting;
 using Serilog.Sinks.Splunk.CustomFormatter;
 using System;
 
@@ -19,7 +20,7 @@ namespace Serilog.Builder
             {
                 var logLevel = this.OutputConfiguration.Splunk.Options.MinimumLevel ?? this.OutputConfiguration.MinimumLevel;
                 var splunkSettings = this.GetSplunkLogSettings();
-                var splunkFormatter = new SplunkJsonFormatter(splunkSettings);
+                var splunkFormatter = this.GetSplunkLogFormatter(splunkSettings);
 
                 logger.WriteTo.EventCollector(splunkSettings.ServerURL, splunkSettings.Token, jsonFormatter: splunkFormatter, restrictedToMinimumLevel: logLevel);
             }
@@ -66,7 +67,7 @@ namespace Serilog.Builder
                 ?? throw new ArgumentNullException(nameof(options));
 
             if (string.IsNullOrWhiteSpace(options.Url) == true && options.Enabled == true)
-            { 
+            {
                 throw new ArgumentNullException(nameof(options.Url));
             }
 
@@ -104,6 +105,20 @@ namespace Serilog.Builder
             };
 
             return splunkLogSettings;
+        }
+
+        /// <summary>
+        /// Get custom or default Splunk log formatter
+        /// </summary>
+        /// <param name="splunkLogSettings">Splunk log settings</param>
+        /// <returns></returns>
+        private ITextFormatter GetSplunkLogFormatter(SplunkLogSettings splunkLogSettings)
+        {
+            var textFormatter = this.OutputConfiguration.Splunk.Options.TextFormatter;
+
+            if (textFormatter == null) return new SplunkJsonFormatter(splunkLogSettings);
+
+            return textFormatter;
         }
     }
 }

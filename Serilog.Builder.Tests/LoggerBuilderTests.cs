@@ -1,5 +1,6 @@
 using Serilog.Builder.Models;
 using Serilog.Events;
+using Serilog.Sinks.Splunk.CustomFormatter;
 using System;
 using System.IO;
 using Xunit;
@@ -233,6 +234,7 @@ namespace Serilog.Builder.Tests
             Assert.True(builder.OutputConfiguration.Splunk.Enabled);
             Assert.NotNull(builder.OutputConfiguration.Splunk.Options.Url);
             Assert.Null(builder.OutputConfiguration.Splunk.Options.Token);
+            Assert.Null(builder.OutputConfiguration.Splunk.Options.TextFormatter);
         }
 
         [Fact]
@@ -248,6 +250,7 @@ namespace Serilog.Builder.Tests
             Assert.True(builder.OutputConfiguration.Splunk.Enabled);
             Assert.NotNull(builder.OutputConfiguration.Splunk.Options.Url);
             Assert.NotNull(builder.OutputConfiguration.Splunk.Options.Token);
+            Assert.Null(builder.OutputConfiguration.Splunk.Options.TextFormatter);
         }
 
         [Fact]
@@ -279,6 +282,7 @@ namespace Serilog.Builder.Tests
             Assert.Equal("http://www.google.com", builder.OutputConfiguration.Splunk.Options.Url);
             Assert.NotNull(builder.OutputConfiguration.Splunk.Options.Token);
             Assert.Equal("XXXXX", builder.OutputConfiguration.Splunk.Options.Token);
+            Assert.Null(builder.OutputConfiguration.Splunk.Options.TextFormatter);
         }
 
         [Fact]
@@ -1031,5 +1035,46 @@ namespace Serilog.Builder.Tests
             // assert
             Assert.NotNull(logger);
         }
+
+        [Fact]
+        public void Build_Basics_Logger_With_Json_Formatter()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            SeqOptions seqOptions = new SeqOptions
+            {
+                Url = "http://localhost",
+                ApiKey = "123456"
+            };
+
+            SplunkOptions splunkOptions = new SplunkOptions
+            {
+                Url = "http://localhost",
+                Token = "123456",
+                Index = "my.index"
+            };
+
+            var splunkSettings = new SplunkLogSettings()
+            {
+                ServerURL = splunkOptions.Url,
+                Token = splunkOptions.Token,
+                Index = splunkOptions.Index
+            };
+
+            splunkOptions.TextFormatter = new SplunkJsonFormatter(splunkSettings);
+
+            Log.Logger = builder
+                .UseSuggestedSetting("MyDomain", "MyApplication")
+                .SetupSeq(seqOptions)
+                .SetupSplunk(splunkOptions)
+                .BuildLogger();
+
+            // act
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.NotNull(logger);
+        }        
     }
 }
