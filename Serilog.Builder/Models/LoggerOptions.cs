@@ -21,23 +21,23 @@
         public bool IsDebugEnabled { get; set; }
 
         /// <summary>
-        /// Console Options
+        /// Console
         /// </summary>
-        public ConsoleOptions ConsoleOptions { get; set; }
+        public ConsoleOptions Console { get; set; }
 
         /// <summary>
-        /// Seq Options
+        /// Seq
         /// </summary>
-        public SeqOptions SeqOptions { get; set; }
+        public SeqOptions Seq { get; set; }
 
         /// <summary>
-        /// Splunk Options
+        /// Splunk
         /// </summary>
-        public SplunkOptions SplunkOptions { get; set; }
+        public SplunkOptions Splunk { get; set; }
 
         /// <summary>
-        /// Google Cloud Logging Options
+        /// Google Cloud Logging
         /// </summary>
-        public GoogleCloudLoggingOptions GoogleCloudLoggingOptions { get; set; }
+        public GoogleCloudLoggingOptions GoogleCloudLogging { get; set; }
     }
 }

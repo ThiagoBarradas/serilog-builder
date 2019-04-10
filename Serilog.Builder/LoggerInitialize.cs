@@ -19,10 +19,10 @@ namespace Serilog.Builder
                 .UseSuggestedSetting(
                     loggerOptions.Domain,
                     loggerOptions.Application)
-                .SetupConsole(loggerOptions.ConsoleOptions)
-                .SetupSeq(loggerOptions.SeqOptions)
-                .SetupSplunk(loggerOptions.SplunkOptions)
-                .SetupGoogleCloudLogging(loggerOptions.GoogleCloudLoggingOptions)
+                .SetupConsole(loggerOptions.Console)
+                .SetupSeq(loggerOptions.Seq)
+                .SetupSplunk(loggerOptions.Splunk)
+                .SetupGoogleCloudLogging(loggerOptions.GoogleCloudLogging)
                 .BuildLogger();
 
             if (loggerOptions.IsDebugEnabled)
