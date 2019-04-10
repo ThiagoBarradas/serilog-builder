@@ -3,14 +3,13 @@ using Xunit;
 
 namespace Serilog.Builder.Tests
 {
-    public class LoggerInitializeTests
+    public static class LoggerInitializeTests
     {
-
         [Fact]
         public static void Construct_Using_Default()
         {
             // arrage & act
-            var loggerOptions = new LoggerOptions()
+            var loggerOptions = new LoggerOptions
             {
                 Application = "Application",
                 Domain = "Domain",
@@ -34,7 +33,7 @@ namespace Serilog.Builder.Tests
         public static void Construct_Using_Default_With_DebugEnabled()
         {
             // arrage & act
-            var loggerOptions = new LoggerOptions()
+            var loggerOptions = new LoggerOptions
             {
                 Application = "Application",
                 Domain = "Domain",
