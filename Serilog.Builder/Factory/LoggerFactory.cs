@@ -41,6 +41,11 @@ namespace Serilog.Builder.Factory
 
             this._loggerDefault = new LoggerDefault(logger);
 
+            if (loggerOptions.Value.DebugEnable)
+            {
+                Debugging.SelfLog.Enable(msg => Console.WriteLine(msg));
+            }
+
             logger.Debug($"Logger working");
             _loggerDefault.DebugAsync($"LoggerDefault working");
         }
