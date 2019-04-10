@@ -1,4 +1,5 @@
 ﻿using Serilog.Builder.Factory;
+using Serilog.Events;
 using System;
 using Xunit;
 using Xunit.Abstractions;
@@ -17,7 +18,9 @@ namespace Serilog.Builder.Tests
             this.TestOutputHelper = testOutputHelper as TestOutputHelper;
 
             var logger = new LoggerConfiguration();
-            logger.WriteTo.XunitTestOutput(this.TestOutputHelper);
+            logger.WriteTo.XunitTestOutput(this.TestOutputHelper, LogEventLevel.Verbose);
+            logger.MinimumLevel.Is(LogEventLevel.Verbose);
+
             this.Logger = logger.CreateLogger();
         }
 
@@ -87,6 +90,19 @@ namespace Serilog.Builder.Tests
 
             // assert
             Assert.Contains("[Information] some info", this.TestOutputHelper.Output);
+        }
+
+        [Fact]
+        public void DebugAsync_Should_Log_Message_With_Debug_Level()
+        {
+            // arrage
+            ILoggerDefault logger = new LoggerDefault(this.Logger);
+
+            // act
+            logger.DebugAsync("some debug").Wait();
+
+            // assert
+            Assert.Contains("[Debug] some debug", this.TestOutputHelper.Output);
         }
     }
 }

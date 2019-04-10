@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Serilog.Builder.Models;
+using System;
 
 namespace Serilog.Builder.Factory
 {
@@ -22,6 +23,7 @@ namespace Serilog.Builder.Factory
         /// <param name="gcpOptions">Google Cloud Logging Options </param>
         public LoggerFactory(
             IOptions<LoggerOptions> loggerOptions,
+            IOptions<ConsoleOptions> consoleOptions,
             IOptions<SeqOptions> seqOptions,
             IOptions<SplunkOptions> splunkOptions,
             IOptions<GoogleCloudLoggingOptions> gcpOptions)
@@ -29,15 +31,24 @@ namespace Serilog.Builder.Factory
             LoggerBuilder builder = new LoggerBuilder();
 
             var logger = builder
+                .EnableConsole()
                 .UseSuggestedSetting(
                     loggerOptions.Value.Domain,
                     loggerOptions.Value.Application)
+                .SetupConsole(consoleOptions.Value)
                 .SetupSeq(seqOptions.Value)
                 .SetupSplunk(splunkOptions.Value)
                 .SetupGoogleCloudLogging(gcpOptions.Value)
                 .BuildLogger();
 
             this._loggerDefault = new LoggerDefault(logger);
+
+            if (loggerOptions.Value.IsDebugEnabled)
+            {
+                builder.EnableDebug();
+                logger.Debug($"Logger working");
+                _loggerDefault.DebugAsync($"LoggerDefault working");
+            }
         }
 
         /// <summary>

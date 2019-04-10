@@ -23,6 +23,16 @@ namespace Serilog.Builder.Factory
         }
 
         /// <summary>
+        /// Log async with debug level
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <returns></returns>
+        public async Task DebugAsync(string message)
+        {
+            await Task.Run(() => _logger.Debug(message)).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Log async with information level
         /// </summary>
         /// <param name="message">Message</param>

@@ -14,5 +14,10 @@
         /// Domain
         /// </summary>
         public string Domain { get; set; }
+
+        /// <summary>
+        /// Is Debug Enabled
+        /// </summary>
+        public bool IsDebugEnabled { get; set; }
     }
 }
