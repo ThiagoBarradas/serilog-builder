@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Serilog.Builder.Models;
+using System;
 
 namespace Serilog.Builder.Factory
 {
@@ -29,6 +30,7 @@ namespace Serilog.Builder.Factory
             LoggerBuilder builder = new LoggerBuilder();
 
             var logger = builder
+                .EnableConsole()
                 .UseSuggestedSetting(
                     loggerOptions.Value.Domain,
                     loggerOptions.Value.Application)
@@ -38,6 +40,9 @@ namespace Serilog.Builder.Factory
                 .BuildLogger();
 
             this._loggerDefault = new LoggerDefault(logger);
+
+            logger.Debug($"Logger working");
+            _loggerDefault.DebugAsync($"LoggerDefault working");
         }
 
         /// <summary>

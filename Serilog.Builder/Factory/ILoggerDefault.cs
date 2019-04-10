@@ -9,6 +9,13 @@ namespace Serilog.Builder.Factory
     public interface ILoggerDefault
     {
         /// <summary>
+        /// Log async as debug
+        /// </summary>
+        /// <param name="message">Message</param>
+        /// <returns></returns>
+        Task DebugAsync(string message);
+
+        /// <summary>
         /// Log async with information level
         /// </summary>
         /// <param name="message">Message</param>
