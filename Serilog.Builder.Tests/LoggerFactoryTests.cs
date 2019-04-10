@@ -15,6 +15,7 @@ namespace Serilog.Builder.Tests
     {
         private TestOutputHelper TestOutputHelper { get; set; }
         private readonly Mock<IOptions<LoggerOptions>> _loggerOptions = new Mock<IOptions<LoggerOptions>>();
+        private readonly Mock<IOptions<ConsoleOptions>> _consoleOptions = new Mock<IOptions<ConsoleOptions>>();
         private readonly Mock<IOptions<SeqOptions>> _seqOptions = new Mock<IOptions<SeqOptions>>();
         private readonly Mock<IOptions<SplunkOptions>> _splunkOptions = new Mock<IOptions<SplunkOptions>>();
         private readonly Mock<IOptions<GoogleCloudLoggingOptions>> _googleCloudLoggingOptions = new Mock<IOptions<GoogleCloudLoggingOptions>>();
@@ -28,10 +29,19 @@ namespace Serilog.Builder.Tests
             var loggerOptions = new LoggerOptions
             {
                 Domain = faker.Lorem.Word(),
-                Application = faker.Lorem.Word()
+                Application = faker.Lorem.Word(),
+                DebugEnable = false
             };
 
             _loggerOptions.Setup(x => x.Value).Returns(loggerOptions);
+
+            var consoleOptions = new ConsoleOptions
+            {
+                Enabled = faker.Random.Bool(),
+                MinimumLevel = LogEventLevel.Debug
+            };
+
+            _consoleOptions.Setup(x => x.Value).Returns(consoleOptions);
 
             var seqOptions = new SeqOptions
             {
@@ -77,7 +87,29 @@ namespace Serilog.Builder.Tests
         public void Construct_Using_Default()
         {
             // arrage & act
-            ILoggerFactory loggerFactory = new LoggerFactory(_loggerOptions.Object, _seqOptions.Object,
+            ILoggerFactory loggerFactory = new LoggerFactory(_loggerOptions.Object, _consoleOptions.Object, _seqOptions.Object,
+                _splunkOptions.Object, _googleCloudLoggingOptions.Object);
+
+            // assert
+            Assert.NotNull(loggerFactory);
+        }
+
+        [Fact]
+        public void Construct_Using_DebugEnable_Equals_True()
+        {
+            // arrage & act
+            var faker = new Bogus.Faker();
+
+            var loggerOptions = new LoggerOptions
+            {
+                Domain = faker.Lorem.Word(),
+                Application = faker.Lorem.Word(),
+                DebugEnable = true
+            };
+
+            _loggerOptions.Setup(x => x.Value).Returns(loggerOptions);
+
+            ILoggerFactory loggerFactory = new LoggerFactory(_loggerOptions.Object, _consoleOptions.Object, _seqOptions.Object,
                 _splunkOptions.Object, _googleCloudLoggingOptions.Object);
 
             // assert
@@ -88,7 +120,7 @@ namespace Serilog.Builder.Tests
         public void Return_Single_Instance()
         {
             // arrage & act
-            ILoggerFactory loggerFactory = new LoggerFactory(_loggerOptions.Object, _seqOptions.Object,
+            ILoggerFactory loggerFactory = new LoggerFactory(_loggerOptions.Object, _consoleOptions.Object, _seqOptions.Object,
                 _splunkOptions.Object, _googleCloudLoggingOptions.Object);
 
             ILoggerDefault loggerDefault = loggerFactory.GetInstance();
