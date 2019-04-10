@@ -9,7 +9,7 @@ namespace Serilog.Builder.Factory
     public interface ILoggerDefault
     {
         /// <summary>
-        /// Log async as debug
+        /// Log async with debug level
         /// </summary>
         /// <param name="message">Message</param>
         /// <returns></returns>
