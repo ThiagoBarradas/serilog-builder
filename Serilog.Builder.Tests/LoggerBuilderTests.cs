@@ -1009,18 +1009,22 @@ namespace Serilog.Builder.Tests
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
-            builder.EnableDebug().EnableSeq("http://invalid");
+            builder.EnableDebug()
+                   .EnableSeq("http://invalid");
 
             var loggerConfiguration = builder.BuildConfiguration();
             loggerConfiguration.WriteTo.XunitTestOutput(this.TestOutputHelper);
             var logger = loggerConfiguration.CreateLogger();
-            
+
             // act
             logger.Verbose("SomeTest Build_Default_Logger");
             
             // assert
             // how validate serilog debug correctly?
             Assert.Contains("SomeTest Build_Default_Logger", this.TestOutputHelper.Output);
+
+            // cleanup
+            builder.DisableDebug();
         }
 
         [Fact]

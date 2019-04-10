@@ -62,6 +62,16 @@ namespace Serilog.Builder
         }
 
         /// <summary>
+        /// Disable serilog debug 
+        /// </summary>
+        public LoggerBuilder DisableDebug()
+        {
+            Debugging.SelfLog.Disable();
+
+            return this;
+        }
+
+        /// <summary>
         /// Enable serilog debug 
         /// </summary>
         public LoggerBuilder EnableDebug()
