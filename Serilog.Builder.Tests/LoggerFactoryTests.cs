@@ -30,7 +30,7 @@ namespace Serilog.Builder.Tests
             {
                 Domain = faker.Lorem.Word(),
                 Application = faker.Lorem.Word(),
-                DebugEnable = false
+                IsDebugEnabled = false
             };
 
             _loggerOptions.Setup(x => x.Value).Returns(loggerOptions);
@@ -104,7 +104,7 @@ namespace Serilog.Builder.Tests
             {
                 Domain = faker.Lorem.Word(),
                 Application = faker.Lorem.Word(),
-                DebugEnable = true
+                IsDebugEnabled = true
             };
 
             _loggerOptions.Setup(x => x.Value).Returns(loggerOptions);

@@ -16,8 +16,8 @@
         public string Domain { get; set; }
 
         /// <summary>
-        /// Debug Enable
+        /// Is Debug Enabled
         /// </summary>
-        public bool DebugEnable { get; set; }
+        public bool IsDebugEnabled { get; set; }
     }
 }

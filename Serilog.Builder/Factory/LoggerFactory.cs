@@ -43,7 +43,7 @@ namespace Serilog.Builder.Factory
 
             this._loggerDefault = new LoggerDefault(logger);
 
-            if (loggerOptions.Value.DebugEnable)
+            if (loggerOptions.Value.IsDebugEnabled)
             {
                 builder.EnableDebug();
                 logger.Debug($"Logger working");
