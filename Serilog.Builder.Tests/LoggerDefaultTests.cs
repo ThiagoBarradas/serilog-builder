@@ -88,5 +88,18 @@ namespace Serilog.Builder.Tests
             // assert
             Assert.Contains("[Information] some info", this.TestOutputHelper.Output);
         }
+
+        [Fact]
+        public void DebugAsync_Should_Log_Message_As_Debug()
+        {
+            // arrage
+            ILoggerDefault logger = new LoggerDefault(this.Logger);
+
+            // act
+            logger.DebugAsync("some debug").Wait();
+
+            // assert
+            Assert.Contains("[Debug] some debug", this.TestOutputHelper.Output);
+        }
     }
 }
