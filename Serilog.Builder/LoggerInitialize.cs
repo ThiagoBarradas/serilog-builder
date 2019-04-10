@@ -1,0 +1,35 @@
+﻿using Serilog.Builder.Models;
+
+namespace Serilog.Builder
+{
+    /// <summary>
+    /// Serilog logger initialize class
+    /// </summary>
+    public static class LoggerInitialize
+    {
+        /// <summary>
+        /// Start initialization
+        /// </summary>
+        /// <returns></returns>
+        public static void Start(LoggerOptions loggerOptions)
+        {
+            LoggerBuilder builder = new LoggerBuilder();
+
+            Log.Logger = builder
+                .UseSuggestedSetting(
+                    loggerOptions.Domain,
+                    loggerOptions.Application)
+                .SetupConsole(loggerOptions.ConsoleOptions)
+                .SetupSeq(loggerOptions.SeqOptions)
+                .SetupSplunk(loggerOptions.SplunkOptions)
+                .SetupGoogleCloudLogging(loggerOptions.GoogleCloudLoggingOptions)
+                .BuildLogger();
+
+            if (loggerOptions.IsDebugEnabled)
+            {
+                builder.EnableDebug();
+                Log.Logger.Debug($"Logger working");
+            }
+        }
+    }
+}
