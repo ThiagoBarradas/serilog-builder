@@ -45,11 +45,10 @@ namespace Serilog.Builder.Factory
 
             if (loggerOptions.Value.DebugEnable)
             {
-                builder.EnableConsole();
+                builder.EnableDebug();
+                logger.Debug($"Logger working");
+                _loggerDefault.DebugAsync($"LoggerDefault working");
             }
-
-            logger.Debug($"Logger working");
-            _loggerDefault.DebugAsync($"LoggerDefault working");
         }
 
         /// <summary>
