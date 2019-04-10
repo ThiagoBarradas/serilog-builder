@@ -25,7 +25,7 @@ namespace Serilog.Builder.Tests
 
             var faker = new Bogus.Faker();
 
-            var loggerOptions = new LoggerOptions()
+            var loggerOptions = new LoggerOptions
             {
                 Domain = faker.Lorem.Word(),
                 Application = faker.Lorem.Word()

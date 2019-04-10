@@ -11,7 +11,7 @@ namespace Serilog.Builder.Factory
         /// <summary>
         /// Logger
         /// </summary>
-        public readonly ILogger _logger;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Constructor 
@@ -29,7 +29,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task InfoAsync(string message)
         {
-            await Task.Run(() => _logger.Information(message));
+            await Task.Run(() => _logger.Information(message)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task WarningAsync(string message)
         {
-            await Task.Run(() => _logger.Warning(message));
+            await Task.Run(() => _logger.Warning(message)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task WarningAsync(string message, Exception ex)
         {
-            await Task.Run(() => _logger.Warning(ex, message));
+            await Task.Run(() => _logger.Warning(ex, message)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task ErrorAsync(string message)
         {
-            await Task.Run(() => _logger.Error(message));
+            await Task.Run(() => _logger.Error(message)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public async Task ErrorAsync(string message, Exception ex)
         {
-            await Task.Run(() => _logger.Error(ex, message));
+            await Task.Run(() => _logger.Error(ex, message)).ConfigureAwait(false);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void Construct_Using_Default()
+        public static void Construct_Using_Default()
         {
             // arrage & act
             LoggerBuilder builder = new LoggerBuilder();
@@ -35,7 +35,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableConsole()
+        public static void EnableConsole()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -48,7 +48,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableConsole_With_MinimumLevel()
+        public static void EnableConsole_With_MinimumLevel()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -63,7 +63,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void SetupConsole()
+        public static void SetupConsole()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -79,7 +79,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void SetupConsole_Should_Throws_Exception_When_Options_Is_Null()
+        public static void SetupConsole_Should_Throws_Exception_When_Options_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -93,7 +93,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void DisableConsole()
+        public static void DisableConsole()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -107,7 +107,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSeq_With_Url()
+        public static void EnableSeq_With_Url()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -123,7 +123,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSeq_With_Url_And_ApiKey()
+        public static void EnableSeq_With_Url_And_ApiKey()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -138,7 +138,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSeq_With_SeqOptions()
+        public static void EnableSeq_With_SeqOptions()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -162,7 +162,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSeq_Should_Throws_Exception_When_Options_Is_Null()
+        public static void EnableSeq_Should_Throws_Exception_When_Options_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -177,7 +177,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSeq_Should_Throws_Exception_When_Options_Url_Is_Empty_String()
+        public static void EnableSeq_Should_Throws_Exception_When_Options_Url_Is_Empty_String()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -192,7 +192,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSeq_Should_Throws_Exception_When_Option_Url_Is_Null()
+        public static void EnableSeq_Should_Throws_Exception_When_Option_Url_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -207,7 +207,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void DisableSeq()
+        public static void DisableSeq()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -221,7 +221,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSplunk_With_Url()
+        public static void EnableSplunk_With_Url()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -238,7 +238,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSplunk_With_Url_And_Token()
+        public static void EnableSplunk_With_Url_And_Token()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -254,7 +254,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSplunk_With_SplunkOptions()
+        public static void EnableSplunk_With_SplunkOptions()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -286,7 +286,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSplunk_Should_Throws_Exception_When_Options_Is_Null()
+        public static void EnableSplunk_Should_Throws_Exception_When_Options_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -301,7 +301,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSplunk_Should_Throws_Exception_When_Options_Url_Is_Empty_String()
+        public static void EnableSplunk_Should_Throws_Exception_When_Options_Url_Is_Empty_String()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -316,7 +316,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableSplunk_Should_Throws_Exception_When_Option_Url_Is_Null()
+        public static void EnableSplunk_Should_Throws_Exception_When_Option_Url_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -331,7 +331,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void DisableSplunk()
+        public static void DisableSplunk()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -344,8 +344,8 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
         }
 
-        //[Fact]
-        public void EnableGoogleCloudLogging_With_ProjectId()
+        [Fact]
+        public static void EnableGoogleCloudLogging_With_ProjectId()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -363,8 +363,8 @@ namespace Serilog.Builder.Tests
             Assert.Equal("some", Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS"));
         }
 
-        //[Fact]
-        public void EnableGoogleCloudLogging_With_ProjectId_And_CertificatePath()
+        [Fact]
+        public static void EnableGoogleCloudLogging_With_ProjectId_And_CertificatePath()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -383,8 +383,8 @@ namespace Serilog.Builder.Tests
             Assert.Equal("C:\\Certificate.json", Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS"));
         }
 
-        //[Fact]
-        public void EnableGoogleCloudLogging_With_GoogleCloudLoggingOptions()
+        [Fact]
+        public static void EnableGoogleCloudLogging_With_GoogleCloudLoggingOptions()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -408,8 +408,8 @@ namespace Serilog.Builder.Tests
             Assert.Equal(Directory.GetCurrentDirectory() + "\\Certificate.json", builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
         }
 
-        //[Fact]
-        public void EnableGoogleCloudLogging_With_GoogleCloudLoggingOptions_And_Empty_CertificatePath()
+        [Fact]
+        public static void EnableGoogleCloudLogging_With_GoogleCloudLoggingOptions_And_Empty_CertificatePath()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -430,11 +430,11 @@ namespace Serilog.Builder.Tests
             Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
             Assert.Equal("project_id", builder.OutputConfiguration.GoogleCloudLogging.Options.ProjectId);
             Assert.NotNull(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
-            Assert.Equal("some", builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
+            Assert.Empty(builder.OutputConfiguration.GoogleCloudLogging.Options.CertificatePath);
         }
 
         [Fact]
-        public void EnableGoogleCloudLogging_Should_Throws_Exception_When_Options_Is_Null()
+        public static void EnableGoogleCloudLogging_Should_Throws_Exception_When_Options_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -448,7 +448,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableGoogleCloudLogging_Should_Throws_Exception_When_Options_ProjectId_Is_Empty_String()
+        public static void EnableGoogleCloudLogging_Should_Throws_Exception_When_Options_ProjectId_Is_Empty_String()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -463,7 +463,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableGoogleCloudLogging_Should_Throws_Exception_When_Option_ProjectId_Is_Null()
+        public static void EnableGoogleCloudLogging_Should_Throws_Exception_When_Option_ProjectId_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -478,7 +478,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void DisableGoogleCloudLogging()
+        public static void DisableGoogleCloudLogging()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -492,7 +492,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void DisableAllOutputs()
+        public static void DisableAllOutputs()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -512,7 +512,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void EnableEnrichWithEnvironment()
+        public static void EnableEnrichWithEnvironment()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -525,7 +525,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void DisableEnrichWithEnvironment()
+        public static void DisableEnrichWithEnvironment()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -539,7 +539,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddEnrichProperty_Should_Throws_Exception_When_Key_Is_Null()
+        public static void AddEnrichProperty_Should_Throws_Exception_When_Key_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -553,7 +553,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddEnrichProperty_Should_Throws_Exception_When_Key_Is_Empty()
+        public static void AddEnrichProperty_Should_Throws_Exception_When_Key_Is_Empty()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -567,7 +567,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddEnrichProperty_Should_Throws_Exception_When_Value_Is_Null()
+        public static void AddEnrichProperty_Should_Throws_Exception_When_Value_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -581,7 +581,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddEnrichProperty_Should_Enrich_Properties()
+        public static void AddEnrichProperty_Should_Enrich_Properties()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -596,7 +596,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddEnrichProperty_Should_Enrich_Properties_When_Property_Already_Exists()
+        public static void AddEnrichProperty_Should_Enrich_Properties_When_Property_Already_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -612,7 +612,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddEnrichProperty_Should_Enrich_Properties_When_Other_Property_Exists()
+        public static void AddEnrichProperty_Should_Enrich_Properties_When_Other_Property_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -628,7 +628,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveEnrichProperty_Should_Throws_Exception_When_Key_Is_Null()
+        public static void RemoveEnrichProperty_Should_Throws_Exception_When_Key_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -642,7 +642,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveEnrichProperty_Should_Throws_Exception_When_Key_Is_Empty()
+        public static void RemoveEnrichProperty_Should_Throws_Exception_When_Key_Is_Empty()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -656,7 +656,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveEnrichProperty_Should_Works_When_Property_Exists()
+        public static void RemoveEnrichProperty_Should_Works_When_Property_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -670,7 +670,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveEnrichProperty_Should_Works_When_Other_Property_Exists()
+        public static void RemoveEnrichProperty_Should_Works_When_Other_Property_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -685,7 +685,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveEnrichProperty_Should_Works_When_Property_Not_Exists()
+        public static void RemoveEnrichProperty_Should_Works_When_Property_Not_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -699,7 +699,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void SetMinimumLevel()
+        public static void SetMinimumLevel()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -712,7 +712,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddOverrideMinimumLevel_Should_Throws_Exception_When_Namespace_Is_Null()
+        public static void AddOverrideMinimumLevel_Should_Throws_Exception_When_Namespace_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -726,7 +726,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddOverrideMinimumLevel_Should_Throws_Exception_When_Namespace_Is_Empty()
+        public static void AddOverrideMinimumLevel_Should_Throws_Exception_When_Namespace_Is_Empty()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -740,7 +740,7 @@ namespace Serilog.Builder.Tests
         }
         
         [Fact]
-        public void AddOverrideMinimumLevel_Should_Register_Override()
+        public static void AddOverrideMinimumLevel_Should_Register_Override()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -754,7 +754,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddOverrideMinimumLevel_Should_Register_Override_When_Property_Already_Exists()
+        public static void AddOverrideMinimumLevel_Should_Register_Override_When_Property_Already_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -769,7 +769,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void AddOverrideMinimumLevel_Should_Register_Override_When_Other_Property_Already_Exists()
+        public static void AddOverrideMinimumLevel_Should_Register_Override_When_Other_Property_Already_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -784,7 +784,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveOverrideMinimumLevel_Should_Throws_Exception_When_Namespace_Is_Null()
+        public static void RemoveOverrideMinimumLevel_Should_Throws_Exception_When_Namespace_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -798,7 +798,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveOverrideMinimumLevel_Should_Throws_Exception_When_Namespace_Is_Empty()
+        public static void RemoveOverrideMinimumLevel_Should_Throws_Exception_When_Namespace_Is_Empty()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -812,7 +812,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveOverrideMinimumLevel_Should_Works_When_Namespace_Exists()
+        public static void RemoveOverrideMinimumLevel_Should_Works_When_Namespace_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -826,7 +826,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveOverrideMinimumLevel_Should_Works_When_Other_Namespace_Exists()
+        public static void RemoveOverrideMinimumLevel_Should_Works_When_Other_Namespace_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -841,7 +841,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void RemoveOverrideMinimumLevel_Should_Works_When_Namespace_Not_Exists()
+        public static void RemoveOverrideMinimumLevel_Should_Works_When_Namespace_Not_Exists()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -855,7 +855,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void UseSuggestedSetting_Should_Throws_Exception_When_Domain_Is_Null()
+        public static void UseSuggestedSetting_Should_Throws_Exception_When_Domain_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -869,7 +869,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void UseSuggestedSetting_Should_Throws_Exception_When_Domain_Is_Empty()
+        public static void UseSuggestedSetting_Should_Throws_Exception_When_Domain_Is_Empty()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -883,7 +883,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void UseSuggestedSetting_Should_Throws_Exception_When_Application_Is_Null()
+        public static void UseSuggestedSetting_Should_Throws_Exception_When_Application_Is_Null()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -897,7 +897,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void UseSuggestedSetting_Should_Throws_Exception_When_Application_Is_Empty()
+        public static void UseSuggestedSetting_Should_Throws_Exception_When_Application_Is_Empty()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -911,7 +911,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void UseSuggestedSetting_Should_Create_Default()
+        public static void UseSuggestedSetting_Should_Create_Default()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -1005,7 +1005,26 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void Build_Basics_Logger()
+        public void EnableDebug()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+            builder.EnableDebug().EnableSeq("http://invalid");
+
+            var loggerConfiguration = builder.BuildConfiguration();
+            loggerConfiguration.WriteTo.XunitTestOutput(this.TestOutputHelper);
+            var logger = loggerConfiguration.CreateLogger();
+            
+            // act
+            logger.Verbose("SomeTest Build_Default_Logger");
+            
+            // assert
+            // how validate serilog debug correctly?
+            Assert.Contains("SomeTest Build_Default_Logger", this.TestOutputHelper.Output);
+        }
+
+        [Fact]
+        public static void Build_Basics_Logger()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -1037,7 +1056,7 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
-        public void Build_Basics_Logger_With_Json_Formatter()
+        public static void Build_Basics_Logger_With_Json_Formatter()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
@@ -1048,21 +1067,19 @@ namespace Serilog.Builder.Tests
                 ApiKey = "123456"
             };
 
+            var splunkSettings = new SplunkLogSettings();
+            splunkSettings.ServerURL = "http://localhost";
+            splunkSettings.Token = "123456";
+            splunkSettings.Index = "my.index";
+
             SplunkOptions splunkOptions = new SplunkOptions
             {
+                Enabled = true,
                 Url = "http://localhost",
                 Token = "123456",
-                Index = "my.index"
+                Index = "my.index",
+                TextFormatter = new SplunkJsonFormatter(splunkSettings)
             };
-
-            var splunkSettings = new SplunkLogSettings()
-            {
-                ServerURL = splunkOptions.Url,
-                Token = splunkOptions.Token,
-                Index = splunkOptions.Index
-            };
-
-            splunkOptions.TextFormatter = new SplunkJsonFormatter(splunkSettings);
 
             Log.Logger = builder
                 .UseSuggestedSetting("MyDomain", "MyApplication")

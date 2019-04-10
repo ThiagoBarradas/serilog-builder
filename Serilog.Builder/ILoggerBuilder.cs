@@ -28,6 +28,12 @@ namespace Serilog.Builder
         LoggerBuilder EnableConsole();
 
         /// <summary>
+        /// Enable debug
+        /// </summary>
+        /// <returns></returns>
+        LoggerBuilder EnableDebug();
+
+        /// <summary>
         /// Disable console
         /// </summary>
         /// <returns></returns>

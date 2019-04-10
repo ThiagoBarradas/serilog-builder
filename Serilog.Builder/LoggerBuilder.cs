@@ -1,8 +1,7 @@
 ﻿using Serilog.Builder.Models;
 using Serilog.Events;
-using Serilog.Sinks.GoogleCloudLogging;
-using Serilog.Sinks.Splunk.CustomFormatter;
 using System;
+using System.Diagnostics;
 
 namespace Serilog.Builder
 {
@@ -58,6 +57,21 @@ namespace Serilog.Builder
 
             this.AddEnrichProperty("Domain", domain);
             this.AddEnrichProperty("Application", application);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Enable serilog debug 
+        /// </summary>
+        public LoggerBuilder EnableDebug()
+        {
+            Debugging.SelfLog.Enable(msg =>
+            {
+                msg = $"==== Serilog Debug ==== \n{msg}\n=======================";
+                Console.WriteLine(msg);
+                Debug.WriteLine(msg);
+            });
 
             return this;
         }

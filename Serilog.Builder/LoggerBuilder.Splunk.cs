@@ -116,7 +116,10 @@ namespace Serilog.Builder
         {
             var textFormatter = this.OutputConfiguration.Splunk.Options.TextFormatter;
 
-            if (textFormatter == null) return new SplunkJsonFormatter(splunkLogSettings);
+            if (textFormatter == null)
+            {
+                return new SplunkJsonFormatter(splunkLogSettings);
+            }
 
             return textFormatter;
         }

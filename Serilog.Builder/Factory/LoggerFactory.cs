@@ -11,7 +11,7 @@ namespace Serilog.Builder.Factory
         /// <summary>
         /// Logger default instance
         /// </summary>
-        private static ILoggerDefault _loggerDefault;
+        private readonly ILoggerDefault _loggerDefault;
 
         /// <summary>
         /// Constructor
@@ -37,7 +37,7 @@ namespace Serilog.Builder.Factory
                 .SetupGoogleCloudLogging(gcpOptions.Value)
                 .BuildLogger();
 
-            _loggerDefault = new LoggerDefault(logger);
+            this._loggerDefault = new LoggerDefault(logger);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Serilog.Builder.Factory
         /// <returns></returns>
         public ILoggerDefault GetInstance()
         {
-            return _loggerDefault;
+            return this._loggerDefault;
         }
 
         /// <summary>
