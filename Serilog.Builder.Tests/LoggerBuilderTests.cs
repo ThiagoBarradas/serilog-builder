@@ -1015,6 +1015,7 @@ namespace Serilog.Builder.Tests
             var loggerConfiguration = builder.BuildConfiguration();
             loggerConfiguration.WriteTo.XunitTestOutput(this.TestOutputHelper);
             var logger = loggerConfiguration.CreateLogger();
+            Debugging.SelfLog.WriteLine("some log");
 
             // act
             logger.Verbose("SomeTest Build_Default_Logger");
