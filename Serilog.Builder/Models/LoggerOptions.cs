@@ -19,5 +19,25 @@
         /// Is Debug Enabled
         /// </summary>
         public bool IsDebugEnabled { get; set; }
+
+        /// <summary>
+        /// Console
+        /// </summary>
+        public ConsoleOptions Console { get; set; }
+
+        /// <summary>
+        /// Seq
+        /// </summary>
+        public SeqOptions Seq { get; set; }
+
+        /// <summary>
+        /// Splunk
+        /// </summary>
+        public SplunkOptions Splunk { get; set; }
+
+        /// <summary>
+        /// Google Cloud Logging
+        /// </summary>
+        public GoogleCloudLoggingOptions GoogleCloudLogging { get; set; }
     }
 }
