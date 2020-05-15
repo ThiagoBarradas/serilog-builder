@@ -36,6 +36,11 @@
         public SplunkOptions Splunk { get; set; }
 
         /// <summary>
+        /// NewRelic
+        /// </summary>
+        public NewRelicOptions NewRelic { get; set; }
+
+        /// <summary>
         /// Google Cloud Logging
         /// </summary>
         public GoogleCloudLoggingOptions GoogleCloudLogging { get; set; }

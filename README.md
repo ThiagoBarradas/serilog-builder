@@ -37,10 +37,18 @@ GoogleCloudLoggingOptions gcpOptions = new GoogleCloudLoggingOptions
     CertificatePath  = "/app/Certificate.json"
 };
 
+NewRelicOptions newRelicOptions = new NewRelicOptions
+{
+    Enabled = true,
+    AppName = "My App",
+    LicenseKey = "xxxxx"
+}; 
+
 Log.Logger = builder
     .UseSuggestedSetting("MyDomain", "MyApplication")
     .SetupSeq(seqOptions)
     .SetupSplunk(splunkOptions)
+    .SetupNewRelic(newRelicOptions)
     .SetupGoogleCloudLogging(gcpOptions)
     .BuildLogger();
 
@@ -57,6 +65,7 @@ Log.Logger = builder
     .EnableConsole()
     .EnableSeq("http://localhost")
     .EnableSplunk("http://localhost")
+    .EnableNewRelic("My App")
     .EnableEnrichWithEnvironment()
     .AddEnrichProperty("Application", "MyApp")
     .SetMinimumLevel(LogEventLevel.Debug)
@@ -84,7 +93,7 @@ See in [nuget version history](https://www.nuget.org/packages/Serilog.Builder)
 
 ## Did you like it? Please, make a donate :)
 
-if you liked this project, please make a contribution and help to keep this and other initiatives, send me some Satochis.
+If you liked this project, please make a contribution and help to keep this and other initiatives, send me some Satochis.
 
 BTC Wallet: `1G535x1rYdMo9CNdTGK3eG6XJddBHdaqfX`
 

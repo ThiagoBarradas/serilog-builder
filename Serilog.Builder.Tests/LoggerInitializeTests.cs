@@ -17,15 +17,18 @@ namespace Serilog.Builder.Tests
                 Console = new ConsoleOptions(),
                 Seq = new SeqOptions(),
                 Splunk = new SplunkOptions(),
+                NewRelic = new NewRelicOptions(),
                 GoogleCloudLogging = new GoogleCloudLoggingOptions()
             };
 
             LoggerInitialize.Start(loggerOptions);
 
             // assert
+            Assert.False(loggerOptions.IsDebugEnabled);
             Assert.False(loggerOptions.Console.Enabled);
             Assert.False(loggerOptions.Seq.Enabled);
             Assert.False(loggerOptions.Splunk.Enabled);
+            Assert.False(loggerOptions.NewRelic.Enabled);
             Assert.False(loggerOptions.GoogleCloudLogging.Enabled);
         }
 
@@ -41,15 +44,18 @@ namespace Serilog.Builder.Tests
                 Console = new ConsoleOptions(),
                 Seq = new SeqOptions(),
                 Splunk = new SplunkOptions(),
+                NewRelic = new NewRelicOptions(),
                 GoogleCloudLogging = new GoogleCloudLoggingOptions()
             };
 
             LoggerInitialize.Start(loggerOptions);
 
             // assert
+            Assert.True(loggerOptions.IsDebugEnabled);
             Assert.False(loggerOptions.Console.Enabled);
             Assert.False(loggerOptions.Seq.Enabled);
             Assert.False(loggerOptions.Splunk.Enabled);
+            Assert.False(loggerOptions.NewRelic.Enabled);
             Assert.False(loggerOptions.GoogleCloudLogging.Enabled);
         }
     }

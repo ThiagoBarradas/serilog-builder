@@ -28,6 +28,8 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Console.Enabled);
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
+            Assert.False(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
             Assert.False(builder.OutputConfiguration.EnableEnrichWithEnvironment);
             Assert.Empty(builder.OutputConfiguration.EnrichProperties);
             Assert.Empty(builder.OutputConfiguration.OverrideMinimumLevel);
@@ -45,6 +47,10 @@ namespace Serilog.Builder.Tests
 
             // assert
             Assert.True(builder.OutputConfiguration.Console.Enabled);
+            Assert.False(builder.OutputConfiguration.Seq.Enabled);
+            Assert.False(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
+            Assert.False(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
         }
 
         [Fact]
@@ -77,6 +83,7 @@ namespace Serilog.Builder.Tests
             // assert
             Assert.True(builder.OutputConfiguration.Console.Enabled);
         }
+
 
         [Fact]
         public static void SetupConsole_Should_Throws_Exception_When_Options_Is_Null()
@@ -492,6 +499,133 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
+        public static void EnableNewRelic_With_AppName_And_LicenseKey()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.EnableNewRelic("App", "LicenseKey");
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.NewRelic.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.NewRelic.Options.AppName);
+            Assert.NotNull(builder.OutputConfiguration.NewRelic.Options.LicenseKey);
+        }
+
+        [Fact]
+        public static void EnableNewRelic_With_NewRelicOptions()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.SetupNewRelic(new NewRelicOptions
+            {
+                Enabled = true,
+                MinimumLevel = LogEventLevel.Information,
+                AppName = "App",
+                LicenseKey = "LicenseKey"
+            });
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.NewRelic.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.NewRelic.Options.AppName);
+            Assert.NotNull(builder.OutputConfiguration.NewRelic.Options.LicenseKey);
+            Assert.Equal("App", builder.OutputConfiguration.NewRelic.Options.AppName);
+            Assert.Equal("LicenseKey", builder.OutputConfiguration.NewRelic.Options.LicenseKey);
+        }
+
+        [Fact]
+        public static void EnableNewRelic_Should_Throws_Exception_When_Options_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupNewRelic((NewRelicOptions)null));
+
+            // assert
+            Assert.Equal("Value cannot be null.\r\nParameter name: options", ex.Message);
+        }
+
+        [Fact]
+        public static void EnableNewRelic_Should_Throws_Exception_When_Options_AppName_Is_Empty_String()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupNewRelic(new NewRelicOptions { AppName = "", Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\r\nParameter name: AppName", ex.Message);
+        }
+
+        [Fact]
+        public static void EnableNewRelic_Should_Throws_Exception_When_Option_AppName_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupNewRelic(new NewRelicOptions { Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\r\nParameter name: AppName", ex.Message);
+        }
+
+        [Fact]
+        public static void EnableNewRelic_Should_Throws_Exception_When_Options_LicenseKey_Is_Empty_String()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupNewRelic(new NewRelicOptions { AppName = "xxx", LicenseKey = "", Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\r\nParameter name: LicenseKey", ex.Message);
+        }
+
+        [Fact]
+        public static void EnableNewRelic_Should_Throws_Exception_When_Option_LicenseKey_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupNewRelic(new NewRelicOptions { AppName = "yyy", LicenseKey = null, Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\r\nParameter name: LicenseKey", ex.Message);
+        }
+
+
+        [Fact]
+        public static void DisableNewRelic()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+            builder.EnableNewRelic("App","LicenseKey");
+
+            // act
+            builder.DisableNewRelic();
+
+            // assert
+            Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
+        }
+
+        [Fact]
         public static void DisableAllOutputs()
         {
             // arrage
@@ -509,6 +643,7 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
             Assert.False(builder.OutputConfiguration.GoogleCloudLogging.Enabled);
+            Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
         }
 
         [Fact]
