@@ -1094,10 +1094,10 @@ namespace Serilog.Builder.Tests
             var logger = loggerConfiguration.CreateLogger();
             
             // act
-            logger.Debug("[{Domain}] [{Application}] [{MachineName}] [{Other}] Build_Complete_Logger");
+            logger.Debug("[{Domain}] [{Application}] [{Other}] Build_Complete_Logger");
 
             // assert
-            Assert.Contains("[Debug] [\"something\"] [\"xpto\"] [\"" + Environment.MachineName + "\"] [\"other\"] Build_Complete_Logger", this.TestOutputHelper.Output);
+            Assert.Contains("[Debug] [\"something\"] [\"xpto\"] [\"other\"] Build_Complete_Logger", this.TestOutputHelper.Output);
             Assert.True(builder.OutputConfiguration.Console.Enabled);
             Assert.True(builder.OutputConfiguration.Seq.Enabled);
             Assert.True(builder.OutputConfiguration.Splunk.Enabled);
