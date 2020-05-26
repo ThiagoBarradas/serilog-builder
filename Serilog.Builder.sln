@@ -6,10 +6,19 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Builder", "Serilog.Builder\Serilog.Builder.csproj", "{DEC34DD5-E4B2-47DE-8E53-90E410D4D131}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B7536345-B053-488D-B751-EA1B4A6584C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Builder.Tests", "Serilog.Builder.Tests\Serilog.Builder.Tests.csproj", "{4DF8BC59-963A-4418-90E4-B24A1FDB5BD9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Builder.Playground", "Serilog.Builder.Playground\Serilog.Builder.Playground.csproj", "{1399FDB1-CFE3-4CA3-B5C3-E1AF5255B2FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{BB4E9F6D-13C5-4BEF-96A1-B9B3BEACCAE2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		appveyor.yml = appveyor.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{680752C6-465F-4960-837B-0D4FF39C72E3}"
+	ProjectSection(SolutionItems) = preProject
 		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
 		.github\ISSUE_TEMPLATE.md = .github\ISSUE_TEMPLATE.md
 		LICENSE = LICENSE
@@ -17,9 +26,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Builder.Tests", "Serilog.Builder.Tests\Serilog.Builder.Tests.csproj", "{4DF8BC59-963A-4418-90E4-B24A1FDB5BD9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Builder.Playground", "Serilog.Builder.Playground\Serilog.Builder.Playground.csproj", "{1399FDB1-CFE3-4CA3-B5C3-E1AF5255B2FE}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "devops", "devops", "{962F1A1B-9A41-43B6-8CA5-829F8E67D639}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +52,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BB4E9F6D-13C5-4BEF-96A1-B9B3BEACCAE2} = {B7536345-B053-488D-B751-EA1B4A6584C8}
+		{680752C6-465F-4960-837B-0D4FF39C72E3} = {B7536345-B053-488D-B751-EA1B4A6584C8}
+		{962F1A1B-9A41-43B6-8CA5-829F8E67D639} = {B7536345-B053-488D-B751-EA1B4A6584C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4213004B-EF30-40EB-B030-4AAED5870930}
