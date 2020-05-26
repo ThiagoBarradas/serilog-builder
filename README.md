@@ -1,8 +1,8 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f204b3b917ce4c4783feaaaef649e152)](https://www.codacy.com/app/ThiagoBarradas/serilog-builder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ThiagoBarradas/serilog-builder&amp;utm_campaign=Badge_Grade)
-[![Build status](https://ci.appveyor.com/api/projects/status/3i7oy17vq1p2n5ko/branch/master?svg=true)](https://ci.appveyor.com/project/ThiagoBarradas/serilog-builder/branch/master)
-[![codecov](https://codecov.io/gh/ThiagoBarradas/serilog-builder/branch/master/graph/badge.svg)](https://codecov.io/gh/ThiagoBarradas/serilog-builder)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Serilog.Builder.svg)](https://www.nuget.org/packages/Serilog.Builder/)
 [![NuGet Version](https://img.shields.io/nuget/v/Serilog.Builder.svg)](https://www.nuget.org/packages/Serilog.Builder/)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ThiagoBarradas_serilog-builder&metric=alert_status)](https://sonarcloud.io/dashboard?id=ThiagoBarradas_serilog-builder)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ThiagoBarradas_serilog-builder&metric=coverage)](https://sonarcloud.io/dashboard?id=ThiagoBarradas_serilog-builder)
 
 # Serilog.Builder
 
