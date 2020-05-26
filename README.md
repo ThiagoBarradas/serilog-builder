@@ -1,3 +1,4 @@
+[![Build Status](https://barradas.visualstudio.com/Contributions/_apis/build/status/NugetPackage/Serilog%20Builder?branchName=master)](https://barradas.visualstudio.com/Contributions/_build/latest?definitionId=9&branchName=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f204b3b917ce4c4783feaaaef649e152)](https://www.codacy.com/app/ThiagoBarradas/serilog-builder?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ThiagoBarradas/serilog-builder&amp;utm_campaign=Badge_Grade)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Serilog.Builder.svg)](https://www.nuget.org/packages/Serilog.Builder/)
 [![NuGet Version](https://img.shields.io/nuget/v/Serilog.Builder.svg)](https://www.nuget.org/packages/Serilog.Builder/)
