@@ -21,10 +21,4 @@
     <ProjectReference Include="..\Serilog.Builder\Serilog.Builder.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Certificate.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
