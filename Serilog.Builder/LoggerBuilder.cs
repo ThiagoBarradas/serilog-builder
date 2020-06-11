@@ -95,7 +95,6 @@ namespace Serilog.Builder
             return this.DisableConsole()
                        .DisableSeq()
                        .DisableSplunk()
-                       .DisableGoogleCloudLogging()
                        .DisableNewRelic();
         }
 
@@ -235,7 +234,6 @@ namespace Serilog.Builder
             this.BuildSeq(logger);
             this.BuildNewRelic(logger);
             this.BuildSplunk(logger);
-            this.BuildGoogleCloudLogging(logger);
 
             return logger;
         }

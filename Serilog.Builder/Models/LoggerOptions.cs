@@ -23,26 +23,21 @@
         /// <summary>
         /// Console
         /// </summary>
-        public ConsoleOptions Console { get; set; }
+        public ConsoleOptions Console { get; set; } = new ConsoleOptions { Enabled = true };
 
         /// <summary>
         /// Seq
         /// </summary>
-        public SeqOptions Seq { get; set; }
+        public SeqOptions Seq { get; set; } = new SeqOptions();
 
         /// <summary>
         /// Splunk
         /// </summary>
-        public SplunkOptions Splunk { get; set; }
+        public SplunkOptions Splunk { get; set; } = new SplunkOptions();
 
         /// <summary>
         /// NewRelic
         /// </summary>
-        public NewRelicOptions NewRelic { get; set; }
-
-        /// <summary>
-        /// Google Cloud Logging
-        /// </summary>
-        public GoogleCloudLoggingOptions GoogleCloudLogging { get; set; }
+        public NewRelicOptions NewRelic { get; set; } = new NewRelicOptions();
     }
 }
