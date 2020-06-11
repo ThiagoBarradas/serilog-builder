@@ -74,31 +74,6 @@ namespace Serilog.Builder
         LoggerBuilder DisableSeq();
 
         /// <summary>
-        /// Enable GoogleCloudLogging
-        /// </summary>
-        /// <returns></returns>
-        LoggerBuilder EnableGoogleCloudLogging(string projectId);
-
-        /// <summary>
-        /// Enable GoogleCloudLogging
-        /// </summary>
-        /// <returns></returns>
-        LoggerBuilder EnableGoogleCloudLogging(string projectId, string certificatePath);
-
-        /// <summary>
-        /// Enable GoogleCloudLogging
-        /// </summary>
-        /// <param name="options"></param>
-        /// <returns></returns>
-        LoggerBuilder SetupGoogleCloudLogging(GoogleCloudLoggingOptions options);
-
-        /// <summary>
-        /// Disable GoogleCloudLogging
-        /// </summary>
-        /// <returns></returns>
-        LoggerBuilder DisableGoogleCloudLogging();
-
-        /// <summary>
         /// Enable splunk
         /// </summary>
         /// <param name="url"></param>

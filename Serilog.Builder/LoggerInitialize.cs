@@ -23,7 +23,6 @@ namespace Serilog.Builder
                 .SetupSeq(loggerOptions.Seq)
                 .SetupSplunk(loggerOptions.Splunk)
                 .SetupNewRelic(loggerOptions.NewRelic)
-                .SetupGoogleCloudLogging(loggerOptions.GoogleCloudLogging)
                 .BuildLogger();
 
             if (loggerOptions.IsDebugEnabled)
