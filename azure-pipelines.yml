@@ -8,7 +8,7 @@
 
 variables:
   organization: 'barradas'
-  solution_path: 'Serilog.Builder.sln'
+  solution_path: 'Serilog.Builder.sln' 
   sdk_project_name: 'Serilog.Builder'
   sdk_project_path: 'Serilog.Builder/Serilog.Builder.csproj'
   net_version: 'netstandard2.0'
