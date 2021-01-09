@@ -31,13 +31,6 @@ SplunkOptions splunkOptions = new SplunkOptions
     Index = "my.index"
 };
 
-GoogleCloudLoggingOptions gcpOptions = new GoogleCloudLoggingOptions
-{
-    Enabled = true,
-    ProjectId  = "my-project-id",
-    CertificatePath  = "/app/Certificate.json"
-};
-
 NewRelicOptions newRelicOptions = new NewRelicOptions
 {
     Enabled = true,
@@ -50,7 +43,6 @@ Log.Logger = builder
     .SetupSeq(seqOptions)
     .SetupSplunk(splunkOptions)
     .SetupNewRelic(newRelicOptions)
-    .SetupGoogleCloudLogging(gcpOptions)
     .BuildLogger();
 
 Log.Logger.Debug("Log something");

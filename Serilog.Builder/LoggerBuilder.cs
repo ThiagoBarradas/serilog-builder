@@ -235,6 +235,8 @@ namespace Serilog.Builder
             this.BuildNewRelic(logger);
             this.BuildSplunk(logger);
 
+            logger.Destructure.ToMaximumDepth(15);
+
             return logger;
         }
     }
