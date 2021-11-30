@@ -1,4 +1,5 @@
-﻿using Serilog.Builder.Models;
+﻿using NewRelic.LogEnrichers.Serilog;
+using Serilog.Builder.Models;
 using System;
 
 namespace Serilog.Builder
@@ -18,6 +19,7 @@ namespace Serilog.Builder
             {
                 var logLevel = this.OutputConfiguration.NewRelic.Options.MinimumLevel ?? this.OutputConfiguration.MinimumLevel;
 
+                logger.Enrich.WithNewRelicLogsInContext();
                 logger.WriteTo.NewRelicLogs(
                     applicationName: this.OutputConfiguration.NewRelic.Options.AppName,
                     licenseKey: this.OutputConfiguration.NewRelic.Options.LicenseKey,

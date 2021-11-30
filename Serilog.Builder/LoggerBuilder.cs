@@ -223,6 +223,8 @@ namespace Serilog.Builder
                 logger.Enrich.WithMachineName();
                 logger.Enrich.WithEnvironmentUserName();
                 logger.Enrich.FromLogContext();
+                logger.Enrich.WithThreadName();
+                logger.Enrich.WithThreadId();
             }
 
             foreach (var enrichProperty in this.OutputConfiguration.EnrichProperties)
