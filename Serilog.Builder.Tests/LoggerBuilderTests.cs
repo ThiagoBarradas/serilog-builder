@@ -461,7 +461,6 @@ namespace Serilog.Builder.Tests
             Assert.Equal("Value cannot be null.\nParameter name: LicenseKey", ex.Message.Replace("\r",""));
         }
 
-
         [Fact]
         public static void DisableNewRelic()
         {
@@ -477,13 +476,125 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
+        public static void EnableDataDog_With_ApiKey()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.EnableDataDog("123");
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.DataDog.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.DataDog.Options.ApiKey);
+            Assert.Null(builder.OutputConfiguration.DataDog.Options.Service);
+            Assert.Null(builder.OutputConfiguration.DataDog.Options.Source);
+            Assert.Null(builder.OutputConfiguration.DataDog.Options.Host);
+            Assert.Null(builder.OutputConfiguration.DataDog.Options.Tags);
+        }
+
+        [Fact]
+        public static void EnableDataDog_With_DataDogOptions()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.SetupDataDog(new DataDogOptions
+            {
+                Enabled = true,
+                MinimumLevel = LogEventLevel.Information,
+                ApiKey = "key",
+                Service = "service",
+                Source = "source",
+                Host = "host",
+                Tags = new string[] { "tags" }
+            });
+
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.DataDog.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.DataDog.Options.ApiKey);
+            Assert.NotNull(builder.OutputConfiguration.DataDog.Options.Host);
+            Assert.NotNull(builder.OutputConfiguration.DataDog.Options.Service);
+            Assert.NotNull(builder.OutputConfiguration.DataDog.Options.Source);
+            Assert.NotNull(builder.OutputConfiguration.DataDog.Options.Tags);
+            Assert.Single(builder.OutputConfiguration.DataDog.Options.Tags);
+            Assert.Equal("key", builder.OutputConfiguration.DataDog.Options.ApiKey);
+            Assert.Equal("service", builder.OutputConfiguration.DataDog.Options.Service);
+            Assert.Equal("source", builder.OutputConfiguration.DataDog.Options.Source);
+            Assert.Equal("host", builder.OutputConfiguration.DataDog.Options.Host);
+            Assert.Equal("tags", builder.OutputConfiguration.DataDog.Options.Tags[0]);
+        }
+
+        [Fact]
+        public static void EnableDataDog_Should_Throws_Exception_When_Options_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupDataDog((DataDogOptions)null));
+
+            // assert
+            Assert.Equal("Value cannot be null.\nParameter name: options", ex.Message.Replace("\r", ""));
+        }
+
+        [Fact]
+        public static void EnableDataDog_Should_Throws_Exception_When_Options_ApiKey_Is_Empty_String()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupDataDog(new DataDogOptions{ ApiKey = "", Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\nParameter name: ApiKey", ex.Message.Replace("\r", ""));
+        }
+
+        [Fact]
+        public static void EnableDataDog_Should_Throws_Exception_When_Option_ApiKey_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupDataDog(new DataDogOptions { ApiKey = null, Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\nParameter name: ApiKey", ex.Message.Replace("\r", ""));
+        }
+
+        [Fact]
+        public static void DisableDataDog()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+            builder.EnableDataDog("123");
+
+            // act
+            builder.DisableDataDog();
+
+            // assert
+            Assert.False(builder.OutputConfiguration.DataDog.Enabled);
+        }
+
+        [Fact]
         public static void DisableAllOutputs()
         {
             // arrage
             LoggerBuilder builder = new LoggerBuilder();
             builder.EnableConsole()
                 .EnableSeq("http://www.google.com")
-                .EnableSplunk("http://www.google.com");
+                .EnableSplunk("http://www.google.com")
+                .EnableNewRelic("asd", "123")
+                .EnableDataDog("123");
 
             // act
             builder.DisableAllOutputs();
@@ -493,6 +604,7 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
             Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
+            Assert.False(builder.OutputConfiguration.DataDog.Enabled);
         }
 
         [Fact]
@@ -907,6 +1019,8 @@ namespace Serilog.Builder.Tests
             Assert.True(builder.OutputConfiguration.Console.Enabled);
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
+            Assert.False(builder.OutputConfiguration.DataDog.Enabled);
             Assert.True(builder.OutputConfiguration.EnableEnrichWithEnvironment);
             Assert.Equal(2, builder.OutputConfiguration.EnrichProperties.Count);
             Assert.Equal("something", builder.OutputConfiguration.EnrichProperties["Domain"]);
@@ -936,7 +1050,24 @@ namespace Serilog.Builder.Tests
                     Url = "http://www.google.ocm",
                     MinimumLevel = LogEventLevel.Error,
                     Enabled = true
-                });
+                })
+                .SetupNewRelic(new NewRelicOptions
+                {
+                    AppName = "asd",
+                    LicenseKey = "123",
+                    MinimumLevel = LogEventLevel.Error,
+                    Enabled = true
+                })
+                .SetupDataDog(new DataDogOptions
+                {
+                    ApiKey = "123",
+                    MinimumLevel = LogEventLevel.Error,
+                    Enabled = true,
+                    Host= "host",
+                    Service = "service",
+                    Source = "source",
+                    Tags = new string[] { "asd" }
+                }); ;
 
             var loggerConfiguration = builder.BuildConfiguration();
             loggerConfiguration.WriteTo.XunitTestOutput(this.TestOutputHelper);
@@ -950,6 +1081,8 @@ namespace Serilog.Builder.Tests
             Assert.True(builder.OutputConfiguration.Console.Enabled);
             Assert.True(builder.OutputConfiguration.Seq.Enabled);
             Assert.True(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.True(builder.OutputConfiguration.NewRelic.Enabled);
+            Assert.True(builder.OutputConfiguration.DataDog.Enabled);
             Assert.True(builder.OutputConfiguration.EnableEnrichWithEnvironment);
             Assert.Equal(3, builder.OutputConfiguration.EnrichProperties.Count);
             Assert.Equal("something", builder.OutputConfiguration.EnrichProperties["Domain"]);
@@ -980,6 +1113,8 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Console.Enabled);
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
+            Assert.False(builder.OutputConfiguration.DataDog.Enabled);
             Assert.False(builder.OutputConfiguration.EnableEnrichWithEnvironment);
             Assert.Empty(builder.OutputConfiguration.EnrichProperties);
             Assert.Empty(builder.OutputConfiguration.OverrideMinimumLevel);
@@ -1029,10 +1164,27 @@ namespace Serilog.Builder.Tests
                 Index = "my.index"
             };
 
+            NewRelicOptions newRelicOptions = new NewRelicOptions
+            {
+                AppName = "asd",
+                LicenseKey = "123"
+            };
+
+            DataDogOptions dataDogOptions = new DataDogOptions
+            {
+                ApiKey = "123",
+                Service = "service",
+                Host = "host",
+                Tags = new string[] {  "tags" },
+                Source = "source"
+            };
+
             Log.Logger = builder
                 .UseSuggestedSetting("MyDomain", "MyApplication")
                 .SetupSeq(seqOptions)
                 .SetupSplunk(splunkOptions)
+                .SetupNewRelic(newRelicOptions)
+                .SetupDataDog(dataDogOptions)
                 .BuildLogger();
             
             // act

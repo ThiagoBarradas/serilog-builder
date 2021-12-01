@@ -39,5 +39,10 @@
         /// NewRelic
         /// </summary>
         public NewRelicOptions NewRelic { get; set; } = new NewRelicOptions();
+
+        /// <summary>
+        /// DataDog
+        /// </summary>
+        public DataDogOptions DataDog { get; set; } = new DataDogOptions();
     }
 }

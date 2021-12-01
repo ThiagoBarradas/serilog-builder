@@ -102,6 +102,46 @@ namespace Serilog.Builder
         LoggerBuilder DisableSplunk();
 
         /// <summary>
+        /// Enable NewRelic
+        /// </summary>
+        /// <param name="appName"></param>
+        /// <returns></returns>
+        LoggerBuilder EnableNewRelic(string appName, string licenseKey);
+
+        /// <summary>
+        /// Setup NewRelic
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        LoggerBuilder SetupNewRelic(NewRelicOptions options);
+
+        /// <summary>
+        /// Disable NewRelic
+        /// </summary>
+        /// <returns></returns>
+        LoggerBuilder DisableNewRelic();
+
+        /// <summary>
+        /// Enable DataDog
+        /// </summary>
+        /// <param name="appName"></param>
+        /// <returns></returns>
+        LoggerBuilder EnableDataDog(string apiKey);
+
+        /// <summary>
+        /// Setup DataDog
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        LoggerBuilder SetupDataDog(DataDogOptions options);
+
+        /// <summary>
+        /// Disable DataDog
+        /// </summary>
+        /// <returns></returns>
+        LoggerBuilder DisableDataDog();
+
+        /// <summary>
         /// Disable all
         /// </summary>
         /// <returns></returns>
