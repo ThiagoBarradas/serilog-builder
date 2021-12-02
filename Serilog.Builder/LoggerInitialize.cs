@@ -23,6 +23,7 @@ namespace Serilog.Builder
                 .SetupSeq(loggerOptions.Seq)
                 .SetupSplunk(loggerOptions.Splunk)
                 .SetupNewRelic(loggerOptions.NewRelic)
+                .SetupDataDog(loggerOptions.DataDog)
                 .BuildLogger();
 
             if (loggerOptions.IsDebugEnabled)
