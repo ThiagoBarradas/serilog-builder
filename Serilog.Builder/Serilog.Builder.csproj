@@ -34,7 +34,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\serilog-sinks-datadog-logs\src\Serilog.Sinks.Datadog.Logs\Serilog.Sinks.Datadog.Logs.csproj" />
+    <ProjectReference Include="..\serilog-sinks-datadog-logs\src\Serilog.Sinks.Datadog.Logs\Serilog.Sinks.Datadog.Logs.csproj">
+      <PrivateAssets>all</PrivateAssets>
+      <!-- Important to remove from nupkg dependencies-->
+      </ProjectReference>
+  </ItemGroup>
+
+  <!-- Includes Lifecycle.Model in nuget package -->
+  <ItemGroup>
+    <None Include="$(OutputPath)\Serilog.Sinks.Datadog.Logs.dll" Pack="true">
+      <PackagePath>lib\netstandard2.0\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
