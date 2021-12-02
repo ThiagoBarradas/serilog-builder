@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using Serilog.Events;
 using Serilog.Formatting.Json;
 using static Serilog.Sinks.Datadog.Logs.Sinks.Datadog.OriginalCaseNamingResolver;
+using System.Threading;
+using Newtonsoft.Json.Converters;
 #if NET5_0_OR_GREATER
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -51,11 +53,18 @@ namespace Serilog.Sinks.Datadog.Logs
         /// <summary>
         /// Settings to drop null values.
         /// </summary>
-        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings 
-        { 
-            ContractResolver = new OriginalCasePropertyNamesContractResolver(), 
-            NullValueHandling = NullValueHandling.Ignore, 
-            Formatting = Newtonsoft.Json.Formatting.None 
+        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            ContractResolver = new OriginalCasePropertyNamesContractResolver(),
+            NullValueHandling = NullValueHandling.Ignore,
+            Formatting = Newtonsoft.Json.Formatting.None,
+            Converters = new List<JsonConverter>
+            {
+                new IsoDateTimeConverter
+                {
+                    DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.ffffffzzz"
+                }
+            }
         };
 #endif
 
