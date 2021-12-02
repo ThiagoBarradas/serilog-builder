@@ -95,7 +95,8 @@ namespace Serilog.Builder
             return this.DisableConsole()
                        .DisableSeq()
                        .DisableSplunk()
-                       .DisableNewRelic();
+                       .DisableNewRelic()
+                       .DisableDataDog();
         }
 
         /// <summary>
@@ -236,6 +237,7 @@ namespace Serilog.Builder
             this.BuildSeq(logger);
             this.BuildNewRelic(logger);
             this.BuildSplunk(logger);
+            this.BuildDataDog(logger);
 
             logger.Destructure.ToMaximumDepth(15);
 

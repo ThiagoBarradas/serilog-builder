@@ -17,7 +17,8 @@ namespace Serilog.Builder.Tests
                 Console = new ConsoleOptions(),
                 Seq = new SeqOptions(),
                 Splunk = new SplunkOptions(),
-                NewRelic = new NewRelicOptions()
+                NewRelic = new NewRelicOptions(),
+                DataDog = new DataDogOptions()
             };
 
             LoggerInitialize.Start(loggerOptions);
@@ -28,6 +29,7 @@ namespace Serilog.Builder.Tests
             Assert.False(loggerOptions.Seq.Enabled);
             Assert.False(loggerOptions.Splunk.Enabled);
             Assert.False(loggerOptions.NewRelic.Enabled);
+            Assert.False(loggerOptions.DataDog.Enabled);
         }
 
         [Fact]
@@ -42,7 +44,8 @@ namespace Serilog.Builder.Tests
                 Console = new ConsoleOptions(),
                 Seq = new SeqOptions(),
                 Splunk = new SplunkOptions(),
-                NewRelic = new NewRelicOptions()
+                NewRelic = new NewRelicOptions(),
+                DataDog = new DataDogOptions()
             };
 
             LoggerInitialize.Start(loggerOptions);
@@ -53,6 +56,7 @@ namespace Serilog.Builder.Tests
             Assert.False(loggerOptions.Seq.Enabled);
             Assert.False(loggerOptions.Splunk.Enabled);
             Assert.False(loggerOptions.NewRelic.Enabled);
+            Assert.False(loggerOptions.DataDog.Enabled);
         }
     }
 }
