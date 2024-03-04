@@ -2,7 +2,6 @@ using Serilog.Builder.Models;
 using Serilog.Events;
 using Serilog.Sinks.Splunk.CustomFormatter;
 using System;
-using System.IO;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -28,6 +27,7 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Console.Enabled);
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.False(builder.OutputConfiguration.Lapi.Enabled);
             Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
             Assert.False(builder.OutputConfiguration.EnableEnrichWithEnvironment);
             Assert.Empty(builder.OutputConfiguration.EnrichProperties);
@@ -390,6 +390,158 @@ namespace Serilog.Builder.Tests
         }
 
         [Fact]
+        public static void EnableLapi_With_Url_And_Index()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.EnableLapi("http://www.google.com", "myindex");
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.Lapi.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.Lapi.Options.Url);
+            Assert.NotNull(builder.OutputConfiguration.Lapi.Options.Index);
+            Assert.Null(builder.OutputConfiguration.Lapi.Options.ProcessName);
+        }
+
+        [Fact]
+        public static void EnableLapi_With_LapiOptions()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            // act
+            builder.SetupLapi(new LapiOptions
+            {
+                Url = "http://www.google.com",
+                Enabled = true,
+                MinimumLevel = LogEventLevel.Verbose,
+                Application = "app",
+                Company = "company",
+                Index = "index",
+                ProcessName = "process",
+                ProductVersion = "1.0",
+                SourceType = "__json",
+            });
+            var logger = builder.BuildLogger();
+
+            // assert
+            Assert.True(builder.OutputConfiguration.Lapi.Enabled);
+            Assert.True(builder.OutputConfiguration.Lapi.Options.Enabled);
+            Assert.NotNull(builder.OutputConfiguration.Lapi.Options.Url);
+            Assert.Equal("http://www.google.com", builder.OutputConfiguration.Lapi.Options.Url);
+            Assert.NotNull(builder.OutputConfiguration.Lapi.Options.ProcessName);
+            Assert.NotNull(builder.OutputConfiguration.Lapi.Options.Index);
+        }
+
+        [Fact]
+        public static void EnableLapi_Should_Throws_Exception_When_Options_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupLapi((LapiOptions)null));
+
+            // assert
+            Assert.Equal("Value cannot be null.\nParameter name: options", ex.Message.Replace("\r", ""));
+        }
+
+        [Fact]
+        public static void EnableLapi_Should_Throws_Exception_When_Options_Url_Is_Empty_String()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupLapi(new LapiOptions { Url = "", Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\nParameter name: Url", ex.Message.Replace("\r", ""));
+        }
+
+        [Fact]
+        public static void EnableLapi_Should_Throws_Exception_When_Option_Url_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+
+            // act
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder.SetupLapi(new LapiOptions { Enabled = true }));
+
+            // assert
+            Assert.Equal("Value cannot be null.\nParameter name: Url", ex.Message.Replace("\r", ""));
+        }
+
+        [Fact]
+        public static void Build_Lapi_Basics_Logger_With_Json_Formatter_Should_Throws_Exception_When_Index_Is_Null()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();  
+
+            LapiOptions lapiOptions = new LapiOptions
+            {
+                Enabled = true,
+                Url = "http://localhost",
+                Index = null                
+            };           
+
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder
+                .UseSuggestedSetting("MyDomain", "MyApplication")
+                .SetupLapi(lapiOptions)
+                .BuildLogger());
+
+            // assert
+            Assert.Equal("Value cannot be null.\nParameter name: index", ex.Message.Replace("\r", ""));            
+        }
+
+        [Fact]
+        public static void Build_Lapi_Basics_Logger_With_Json_Formatter_Should_Throws_Exception_When_Index_Is_Empty()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+
+            LapiOptions lapiOptions = new LapiOptions
+            {
+                Enabled = true,
+                Url = "http://localhost",
+                Index = ""
+            };
+
+            Exception ex = Assert.Throws<ArgumentNullException>(() =>
+                builder
+                .UseSuggestedSetting("MyDomain", "MyApplication")
+                .SetupLapi(lapiOptions)
+                .BuildLogger());
+
+            // assert
+            Assert.Equal("Value cannot be null.\nParameter name: index", ex.Message.Replace("\r", ""));
+        }
+
+        [Fact]
+        public static void DisableLapi()
+        {
+            // arrage
+            LoggerBuilder builder = new LoggerBuilder();
+            builder.EnableLapi("http://www.google.com", "myindex");
+
+            // act
+            builder.DisableLapi();
+
+            // assert
+            Assert.False(builder.OutputConfiguration.Lapi.Enabled);
+        }
+
+        [Fact]
         public static void EnableNewRelic_Should_Throws_Exception_When_Options_Is_Null()
         {
             // arrage
@@ -593,6 +745,7 @@ namespace Serilog.Builder.Tests
             builder.EnableConsole()
                 .EnableSeq("http://www.google.com")
                 .EnableSplunk("http://www.google.com")
+                .EnableLapi("http://www.google.com", "myindex")
                 .EnableNewRelic("asd", "123")
                 .EnableDataDog("123");
 
@@ -603,6 +756,7 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Console.Enabled);
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.False(builder.OutputConfiguration.Lapi.Enabled);
             Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
             Assert.False(builder.OutputConfiguration.DataDog.Enabled);
         }
@@ -1051,6 +1205,12 @@ namespace Serilog.Builder.Tests
                     MinimumLevel = LogEventLevel.Error,
                     Enabled = true
                 })
+                .SetupLapi(new LapiOptions
+                {
+                    Url = "http://www.google.ocm",
+                    Index = "myindex",
+                    Enabled = true
+                })
                 .SetupNewRelic(new NewRelicOptions
                 {
                     AppName = "asd",
@@ -1081,6 +1241,7 @@ namespace Serilog.Builder.Tests
             Assert.True(builder.OutputConfiguration.Console.Enabled);
             Assert.True(builder.OutputConfiguration.Seq.Enabled);
             Assert.True(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.True(builder.OutputConfiguration.Lapi.Enabled);
             Assert.True(builder.OutputConfiguration.NewRelic.Enabled);
             Assert.True(builder.OutputConfiguration.DataDog.Enabled);
             Assert.True(builder.OutputConfiguration.EnableEnrichWithEnvironment);
@@ -1113,6 +1274,7 @@ namespace Serilog.Builder.Tests
             Assert.False(builder.OutputConfiguration.Console.Enabled);
             Assert.False(builder.OutputConfiguration.Seq.Enabled);
             Assert.False(builder.OutputConfiguration.Splunk.Enabled);
+            Assert.False(builder.OutputConfiguration.Lapi.Enabled);
             Assert.False(builder.OutputConfiguration.NewRelic.Enabled);
             Assert.False(builder.OutputConfiguration.DataDog.Enabled);
             Assert.False(builder.OutputConfiguration.EnableEnrichWithEnvironment);
@@ -1164,6 +1326,12 @@ namespace Serilog.Builder.Tests
                 Index = "my.index"
             };
 
+            LapiOptions lapiOptions = new LapiOptions()
+            {
+                Url = "http://localhost",
+                Index = "myindex"
+            };
+
             NewRelicOptions newRelicOptions = new NewRelicOptions
             {
                 AppName = "asd",
@@ -1183,6 +1351,7 @@ namespace Serilog.Builder.Tests
                 .UseSuggestedSetting("MyDomain", "MyApplication")
                 .SetupSeq(seqOptions)
                 .SetupSplunk(splunkOptions)
+                .SetupLapi(lapiOptions)
                 .SetupNewRelic(newRelicOptions)
                 .SetupDataDog(dataDogOptions)
                 .BuildLogger();
