@@ -36,6 +36,11 @@
         public SplunkOptions Splunk { get; set; } = new SplunkOptions();
 
         /// <summary>
+        /// Lapi
+        /// </summary>
+        public LapiOptions Lapi { get; set; } = new LapiOptions();
+
+        /// <summary>
         /// NewRelic
         /// </summary>
         public NewRelicOptions NewRelic { get; set; } = new NewRelicOptions();
