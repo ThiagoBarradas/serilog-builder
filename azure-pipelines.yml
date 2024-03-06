@@ -12,7 +12,7 @@ variables:
   sdk_project_name: 'Serilog.Builder'
   sdk_project_path: 'Serilog.Builder/Serilog.Builder.csproj'
   net_version: 'netstandard2.0'
-  execute_test: 'false'
+  execute_test: 'true'
   test_project_base_folder: 'Serilog.Builder.Tests'
   test_project_path: 'Serilog.Builder.Tests/Serilog.Builder.Tests.csproj'
   execute_sonarcloud: 'true'
