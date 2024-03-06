@@ -9,7 +9,7 @@ namespace Serilog.Builder.Playground
         {
             LoggerBuilder builder = new LoggerBuilder();
             builder.UseSuggestedSetting("Domainnn", "Apppp");
-            builder.EnableDataDog("xxxx");
+            builder.EnableDataDog("xxx");
 
             var logger = builder.BuildConfiguration().CreateLogger();
 

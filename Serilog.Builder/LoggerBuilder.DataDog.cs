@@ -20,12 +20,12 @@ namespace Serilog.Builder
                 var logLevel = this.OutputConfiguration.DataDog.Options.MinimumLevel ?? this.OutputConfiguration.MinimumLevel;
 
                 logger.WriteTo.DatadogLogs(
-                    apiKey: this.OutputConfiguration.DataDog.Options.ApiKey,
-                    source: this.OutputConfiguration.DataDog.Options.Source,
-                    service: this.OutputConfiguration.DataDog.Options.Service,
-                    tags: this.OutputConfiguration.DataDog.Options.Tags,
-                    host: this.OutputConfiguration.DataDog.Options.Host,
-                    logLevel: logLevel);
+                    this.OutputConfiguration.DataDog.Options.ApiKey,
+                    this.OutputConfiguration.DataDog.Options.Source,
+                    this.OutputConfiguration.DataDog.Options.Service,
+                    this.OutputConfiguration.DataDog.Options.Host,
+                    this.OutputConfiguration.DataDog.Options.Tags, 
+                    null, null, logLevel, null, null, null, null, false);
             }
         }
 

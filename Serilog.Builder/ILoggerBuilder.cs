@@ -89,7 +89,7 @@ namespace Serilog.Builder
         LoggerBuilder EnableSplunk(string url, string token);
 
         /// <summary>
-        /// Enable seq
+        /// Setup splunk
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
@@ -100,6 +100,26 @@ namespace Serilog.Builder
         /// </summary>
         /// <returns></returns>
         LoggerBuilder DisableSplunk();
+
+        /// <summary>
+        /// Enable lapi
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        LoggerBuilder EnableLapi(string url, string index);
+
+        /// <summary>
+        /// Setup lapi
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        LoggerBuilder SetupLapi(LapiOptions options);
+
+        /// <summary>
+        /// Disable lapi
+        /// </summary>
+        /// <returns></returns>
+        LoggerBuilder DisableLapi();
 
         /// <summary>
         /// Enable NewRelic

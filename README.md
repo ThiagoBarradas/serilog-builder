@@ -38,11 +38,20 @@ NewRelicOptions newRelicOptions = new NewRelicOptions
     LicenseKey = "xxxxx"
 }; 
 
+DataDogOptions dataDogOptions = new DataDogOptions
+{
+    Enabled = true,
+    Service = "My App",
+    ApiKey = "xxxxx"
+}; 
+
+
 Log.Logger = builder
     .UseSuggestedSetting("MyDomain", "MyApplication")
     .SetupSeq(seqOptions)
     .SetupSplunk(splunkOptions)
     .SetupNewRelic(newRelicOptions)
+    .SetupDataDog(dataDogOptions)
     .BuildLogger();
 
 Log.Logger.Debug("Log something");
