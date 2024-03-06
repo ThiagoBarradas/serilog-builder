@@ -46,6 +46,11 @@ namespace Serilog.Builder.Models
         public Output<DataDogOptions> DataDog { get; set; }
 
         /// <summary>
+        /// Lapi
+        /// </summary>
+        public Output<LapiOptions> Lapi { get; set; }
+
+        /// <summary>
         /// Minimum level
         /// </summary>
         public LogEventLevel MinimumLevel { get; set; }
@@ -63,6 +68,7 @@ namespace Serilog.Builder.Models
             this.Console = new Output<ConsoleOptions>();
             this.Seq = new Output<SeqOptions>();
             this.Splunk = new Output<SplunkOptions>();
+            this.Lapi = new Output<LapiOptions>();
             this.NewRelic = new Output<NewRelicOptions>();
             this.DataDog = new Output<DataDogOptions>();
             this.OverrideMinimumLevel = new Dictionary<string, LogEventLevel>();

@@ -57,7 +57,7 @@ namespace Serilog.Builder
         }
 
         /// <summary>
-        /// Setup seq
+        /// Setup splunk
         /// </summary>
         /// <param name="options"></param>
         /// <returns></returns>
