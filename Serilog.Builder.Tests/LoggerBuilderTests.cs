@@ -94,7 +94,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupConsole((ConsoleOptions)null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: options", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'options')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -178,7 +178,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupSeq((SeqOptions)null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: options", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'options')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -193,7 +193,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupSeq(new SeqOptions { Url = "", Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: Url", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'Url')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -208,7 +208,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupSeq(new SeqOptions { Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: Url", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'Url')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -302,7 +302,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupSplunk((SplunkOptions)null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: options", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'options')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -317,7 +317,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupSplunk(new SplunkOptions { Url = "", Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: Url", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'Url')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -332,7 +332,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupSplunk(new SplunkOptions { Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: Url", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'Url')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -448,7 +448,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupLapi((LapiOptions)null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: options", ex.Message.Replace("\r", ""));
+            Assert.Equal("Value cannot be null. (Parameter 'options')", ex.Message.Replace("\r", ""));
         }
 
         [Fact]
@@ -463,7 +463,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupLapi(new LapiOptions { Url = "", Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: Url", ex.Message.Replace("\r", ""));
+            Assert.Equal("Value cannot be null. (Parameter 'Url')", ex.Message.Replace("\r", ""));
         }
 
         [Fact]
@@ -478,7 +478,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupLapi(new LapiOptions { Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: Url", ex.Message.Replace("\r", ""));
+            Assert.Equal("Value cannot be null. (Parameter 'Url')", ex.Message.Replace("\r", ""));
         }
 
         [Fact]
@@ -501,7 +501,7 @@ namespace Serilog.Builder.Tests
                 .BuildLogger());
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: index", ex.Message.Replace("\r", ""));            
+            Assert.Equal("Value cannot be null. (Parameter 'index')", ex.Message.Replace("\r", ""));            
         }
 
         [Fact]
@@ -524,7 +524,7 @@ namespace Serilog.Builder.Tests
                 .BuildLogger());
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: index", ex.Message.Replace("\r", ""));
+            Assert.Equal("Value cannot be null. (Parameter 'index')", ex.Message.Replace("\r", ""));
         }
 
         [Fact]
@@ -552,7 +552,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupNewRelic((NewRelicOptions)null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: options", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'options')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -567,7 +567,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupNewRelic(new NewRelicOptions { AppName = "", Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: AppName", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'AppName')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -581,7 +581,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupNewRelic(new NewRelicOptions { Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: AppName", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'AppName')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -596,7 +596,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupNewRelic(new NewRelicOptions { AppName = "xxx", LicenseKey = "", Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: LicenseKey", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'LicenseKey')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -610,7 +610,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupNewRelic(new NewRelicOptions { AppName = "yyy", LicenseKey = null, Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: LicenseKey", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'LicenseKey')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -692,7 +692,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupDataDog((DataDogOptions)null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: options", ex.Message.Replace("\r", ""));
+            Assert.Equal("Value cannot be null. (Parameter 'options')", ex.Message.Replace("\r", ""));
         }
 
         [Fact]
@@ -706,7 +706,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupDataDog(new DataDogOptions{ ApiKey = "", Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: ApiKey", ex.Message.Replace("\r", ""));
+            Assert.Equal("Value cannot be null. (Parameter 'ApiKey')", ex.Message.Replace("\r", ""));
         }
 
         [Fact]
@@ -720,7 +720,7 @@ namespace Serilog.Builder.Tests
                 builder.SetupDataDog(new DataDogOptions { ApiKey = null, Enabled = true }));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: ApiKey", ex.Message.Replace("\r", ""));
+            Assert.Equal("Value cannot be null. (Parameter 'ApiKey')", ex.Message.Replace("\r", ""));
         }
 
         [Fact]
@@ -799,7 +799,7 @@ namespace Serilog.Builder.Tests
                 builder.AddEnrichProperty(null, null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: key", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'key')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -813,7 +813,7 @@ namespace Serilog.Builder.Tests
                 builder.AddEnrichProperty("", null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: key", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'key')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -827,7 +827,7 @@ namespace Serilog.Builder.Tests
                 builder.AddEnrichProperty("SomeProperty", null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: value", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'value')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -888,7 +888,7 @@ namespace Serilog.Builder.Tests
                 builder.RemoveEnrichProperty(null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: key", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'key')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -902,7 +902,7 @@ namespace Serilog.Builder.Tests
                 builder.RemoveEnrichProperty(""));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: key", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'key')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -972,7 +972,7 @@ namespace Serilog.Builder.Tests
                 builder.AddOverrideMinimumLevel(null, LogEventLevel.Warning));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: _namespace", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter '_namespace')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -986,7 +986,7 @@ namespace Serilog.Builder.Tests
                 builder.AddOverrideMinimumLevel("", LogEventLevel.Fatal));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: _namespace", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter '_namespace')", ex.Message.Replace("\r",""));
         }
         
         [Fact]
@@ -1044,7 +1044,7 @@ namespace Serilog.Builder.Tests
                 builder.RemoveOverrideMinimumLevel(null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: _namespace", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter '_namespace')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -1058,7 +1058,7 @@ namespace Serilog.Builder.Tests
                 builder.RemoveOverrideMinimumLevel(""));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: _namespace", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter '_namespace')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -1115,7 +1115,7 @@ namespace Serilog.Builder.Tests
                 builder.UseSuggestedSetting(null, "something"));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: domain", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'domain')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -1129,7 +1129,7 @@ namespace Serilog.Builder.Tests
                 builder.UseSuggestedSetting("", "something"));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: domain", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'domain')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -1143,7 +1143,7 @@ namespace Serilog.Builder.Tests
                 builder.UseSuggestedSetting("something", null));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: application", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'application')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
@@ -1157,7 +1157,7 @@ namespace Serilog.Builder.Tests
                 builder.UseSuggestedSetting("something", ""));
 
             // assert
-            Assert.Equal("Value cannot be null.\nParameter name: application", ex.Message.Replace("\r",""));
+            Assert.Equal("Value cannot be null. (Parameter 'application')", ex.Message.Replace("\r",""));
         }
 
         [Fact]
